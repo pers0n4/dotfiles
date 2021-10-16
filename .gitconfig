@@ -1,0 +1,20 @@
+[user]
+	name = Dong-Young Kim
+	email = 31337.persona@gmail.com
+[core]
+	editor = nvim
+	excludesfile = ~/.gitignore
+  attributesfile = ~/.gitattributes
+[init]
+	defaultBranch = main
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
+[credential]
+	helper = store --file=~/.gitcredentials
+  helper = cache --timeout=3600
+[push]
+	followTags = true
+[pull]
+	ff = only
