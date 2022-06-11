@@ -10,13 +10,13 @@ module.exports = {
     // default font size in pixels for all tabs
     fontSize: 14,
     // font family with optional fallbacks
-    fontFamily: '"FiraMono Nerd Font Mono", "D2Coding", monospace',
+    fontFamily: '"FiraCode Nerd Font Mono", "D2Coding", monospace',
     // default font weight: 'normal' or 'bold'
     fontWeight: "normal",
     // font weight for bold characters: 'normal' or 'bold'
     fontWeightBold: "bold",
     // line height as a relative unit
-    lineHeight: 1,
+    lineHeight: 1.25,
     // letter spacing as a relative unit
     letterSpacing: 0,
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
