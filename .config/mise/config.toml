@@ -1,0 +1,25 @@
+[tools]
+node = "lts"
+deno = "latest"
+bun = "latest"
+python = "3.12"
+uv = "latest"
+java = "temurin-21"
+"npm:commitizen" = "latest"
+"npm:cz-conventional-changelog" = "latest"
+"pipx:commitizen" = "latest"
+"pipx:pre-commit" = "latest"
+"pipx:ruff" = "latest"
+"pipx:sqlfluff" = "latest"
+"pipx:pylyzer" = "latest"
+
+[tasks."brew:upgrade"]
+run = ["brew update", "brew upgrade", "brew cleanup"]
+
+[settings]
+
+[settings.npm]
+bun = true
+
+[settings.pipx]
+uvx = true
