@@ -97,32 +97,15 @@ EOPLUGINS
     mise outdated
 fi
 
-clear:python() {
-    find . -type f -name "*.py[co]" -delete
-    find . -type d -name "__pycache__" -exec rm -rf {} +
-    find . -type d -name ".mypy_cache" -exec rm -rf {} +
-    find . -type d -name ".ruff_cache" -exec rm -rf {} +
-    find . -type d -name ".pytest_cache" -exec rm -rf {} +
-}
-
-clear:node() {
-    find . -type d -name "node_modules" -exec rm -rf {} +
-}
-
 unalias l
 alias ls="eza --classify=always --color=auto --color-scale=all --color-scale-mode=gradient --icons=auto --no-quotes --group-directories-first"
-alias ll="ls --long --header \
-    --inode --octal-permissions --links \
-    --blocksize \
-    --group --flags \
-    --created --modified --time-style=long-iso \
-    --mounts --git --git-repos"
-    # --total-size --changed --accessed
+alias ll="ls --long --header --inode --octal-permissions --links --blocksize --total-size --group --smart-group --flags --modified --changed --created --accessed --time-style=long-iso --mounts --git --git-repos"
 alias lsa="ls --all"
 alias la="ll --almost-all"
 
 eval "$(mise activate zsh)"
 eval "$(zoxide init zsh)"
+
 # Add the following to the end of ~/.zshrc:
 eval "$(starship init zsh)"
 
