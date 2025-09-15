@@ -13,8 +13,33 @@ java = "temurin-21"
 "pipx:sqlfluff" = "latest"
 "pipx:pylyzer" = "latest"
 
-[tasks."brew:upgrade"]
-run = ["brew update", "brew upgrade", "brew cleanup"]
+[tasks."upgrade:brew"]
+run = ["brew update", "brew upgrade", "brew cleanup --prune=all"]
+
+[tasks."upgrade:mise"]
+run = ["mise upgrade", "mise reshim", "mise cache prune"]
+
+[tasks.upgrade]
+depends = ["upgrade:*"]
+
+[tasks."prune:node"]
+run = [
+    "find . -type d -name 'node_modules' -exec rm -rf {} +",
+    "find . -type f -name '.eslintcache' -exec rm -rf {} +",
+    "find . -type f -name '.stylelintcache' -exec rm -rf {} +",
+]
+
+[tasks."prune:python"]
+run = [
+    "find . -type f -name '*.py[co]' -delete",
+    "find . -type d -name '__pycache__' -exec rm -rf {} +",
+    "find . -type d -name '.mypy_cache' -exec rm -rf {} +",
+    "find . -type d -name '.ruff_cache' -exec rm -rf {} +",
+    "find . -type d -name '.pytest_cache' -exec rm -rf {} +",
+]
+
+[tasks.prune]
+depends = ["prune:*"]
 
 [settings]
 
