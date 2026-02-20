@@ -1,0 +1,45 @@
+["update:antidote"]
+description = "Update zsh plugins via antidote"
+run = '''
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+exec zsh -lc 'source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh; antidote update'
+'''
+hide = true
+
+["update:claude"]
+description = "Update Claude plugins and marketplace"
+shell = "zsh -c"
+run = '''
+#!/usr/bin/env zsh
+set -Eeuo pipefail
+
+claude plugin marketplace update
+claude plugin list --json | jq -r '
+  .[] | select(.enabled) |
+  if (.scope == "project" or .scope == "local") and (.projectPath != null) then
+    "(cd \(.projectPath | @sh) && claude plugin update --scope=\(.scope | @sh) \(.id | @sh))"
+  else
+    "claude plugin update --scope=\(.scope | @sh) \(.id | @sh)"
+  end
+' | sort -u | sh
+'''
+hide = true
+
+[update]
+description = "Update zsh and Claude Code plugins"
+usage = '''
+arg "<tool>" {
+  choices "all" "antidote" "claude"
+  default "all"
+}
+'''
+run = '''
+#!/usr/bin/env bash
+case "${usage_tool}" in
+  all) {{mise_bin}} run update:* ;;
+  antidote) {{mise_bin}} run update:antidote ;;
+  claude) {{mise_bin}} run update:claude ;;
+esac
+'''

@@ -1,0 +1,84 @@
+["cache:npm:prune"]
+description = "Prune npm cache"
+run = "command -v npm >/dev/null 2>&1 && npm cache verify"
+hide = true
+quiet = true
+
+["cache:yarn:prune"]
+description = "Prune Yarn cache"
+run = "command -v yarn >/dev/null 2>&1 && yarn cache clean"
+hide = true
+quiet = true
+
+["cache:pnpm:prune"]
+description = "Prune pnpm cache"
+run = "command -v pnpm >/dev/null 2>&1 && pnpm store prune"
+hide = true
+quiet = true
+
+["cache:bun:prune"]
+description = "Prune Bun cache"
+run = "command -v bun >/dev/null 2>&1 && bun pm cache clean"
+hide = true
+quiet = true
+
+["cache:uv:prune"]
+description = "Prune uv cache"
+run = "command -v uv >/dev/null 2>&1 && uv cache prune"
+hide = true
+quiet = true
+
+["cache:prune"]
+description = "Prune all package manager caches"
+depends = ["cache:*:prune"]
+hide = true
+
+["cache:node:remove"]
+description = "Remove Node.js cache files"
+confirm = "Remove all node_modules, eslintcache, stylelintcache under ~/development?"
+dir = "{{env.HOME}}/development"
+run = [
+  "fd -tf '.eslintcache' -x rm",
+  "fd -tf '.stylelintcache' -x rm",
+  "fd -td 'node_modules' -x rm -rf",
+]
+hide = true
+quiet = true
+
+["cache:python:remove"]
+description = "Remove Python cache files"
+confirm = "Remove all __pycache__, .pyc, ruff/mypy/pytest caches under ~/development?"
+dir = "{{env.HOME}}/development"
+run = [
+  "fd -tf --glob '*.py[co]' -x rm",
+  "fd -td '__pycache__' -x rm -rf",
+  "fd -td '.ruff_cache' -x rm -rf",
+  "fd -td '.mypy_cache' -x rm -rf",
+  "fd -td '.pytest_cache' -x rm -rf",
+]
+hide = true
+quiet = true
+
+["cache:remove"]
+description = "Remove all development cache files"
+depends = ["cache:*:remove"]
+hide = true
+
+[cache]
+description = "Manage development caches"
+usage = '''
+arg "<action>" {
+  choices "prune" "remove"
+}
+arg "[target]" {
+  choices "all" "npm" "yarn" "pnpm" "bun" "uv" "node" "python" "zsh"
+  default "all"
+}
+'''
+run = '''
+if [ "${usage_target}" = "all" ]; then
+  {{mise_bin}} run "cache:*:${usage_action}"
+else
+  {{mise_bin}} run "cache:${usage_target}:${usage_action}"
+fi
+'''

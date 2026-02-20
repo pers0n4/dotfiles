@@ -1,0 +1,13 @@
+["upgrade:brew"]
+description = "Upgrade Homebrew packages"
+run = ["brew update", "brew upgrade", "brew cleanup --prune=all"]
+hide = true
+
+["upgrade:mise"]
+description = "Upgrade mise tools"
+run = ["{{mise_bin}} upgrade", "{{mise_bin}} reshim", "{{mise_bin}} cache prune"]
+hide = true
+
+[upgrade]
+description = "Upgrade Homebrew and mise tools"
+depends = ["upgrade:*"]
