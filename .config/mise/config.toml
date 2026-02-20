@@ -1,50 +1,87 @@
+min_version = "2026.2.0"
+
+[env]
+_.file = [
+  "{{xdg_config_home}}/mise/.env",
+  "{{xdg_config_home}}/mise/.env.local",
+  "{{config_root}}/mise/.env",
+  "{{config_root}}/mise/.env.local",
+  "{{cwd}}/.env",
+  "{{cwd}}/.env.local",
+]
+_.path = [
+  "{{xdg_cache_home}}/.bun/bin",
+]
+
+_.python.venv = { path = "{{env.HOME}}/.venv", create = true }
+
 [tools]
-node = "lts"
-deno = "latest"
-bun = "latest"
-python = "3.12"
-uv = "latest"
+python = "{{ get_env(name='PYTHON_VERSION', default='3.12') }}"
+node = "{{ get_env(name='NODE_VERSION', default='lts') }}"
+# deno = "latest"
+bun = { version = "latest", postinstall = "bun install -g @tobilu/qmd" }
+go = "latest"
+rust = "latest"
 java = "temurin-21"
-"npm:commitizen" = "latest"
-"npm:cz-conventional-changelog" = "latest"
-"pipx:commitizen" = "latest"
-"pipx:pre-commit" = "latest"
-"pipx:ruff" = "latest"
-"pipx:sqlfluff" = "latest"
-"pipx:pylyzer" = "latest"
 
-[tasks."upgrade:brew"]
-run = ["brew update", "brew upgrade", "brew cleanup --prune=all"]
+# yarn = "latest"
+pnpm = "latest"
+uv = "latest"
 
-[tasks."upgrade:mise"]
-run = ["mise upgrade", "mise reshim", "mise cache prune"]
+usage = "latest"  # https://mise.jdx.dev/installing-mise.html#autocompletion
+watchexec = "latest"  # https://mise.jdx.dev/cli/watch.html#mise-watch
+cargo-binstall = "latest"  # https://mise.jdx.dev/tips-and-tricks.html#cargo-binstall
 
-[tasks.upgrade]
-depends = ["upgrade:*"]
+cocogitto = "latest"
+git-cliff = "latest"
+prek = "latest"
+# pre-commit = "latest"
 
-[tasks."prune:node"]
-run = [
-    "find . -type d -name 'node_modules' -exec rm -rf {} +",
-    "find . -type f -name '.eslintcache' -exec rm -rf {} +",
-    "find . -type f -name '.stylelintcache' -exec rm -rf {} +",
-]
+shfmt = "latest"
+# prettier = "latest"
+# oxfmt = "latest"
+# oxlint = "latest"
+# ruff = "latest"
+# ty = "latest"
+# "pipx:sqruff" = "latest"
+# "pipx:sqlfluff" = "latest"
 
-[tasks."prune:python"]
-run = [
-    "find . -type f -name '*.py[co]' -delete",
-    "find . -type d -name '__pycache__' -exec rm -rf {} +",
-    "find . -type d -name '.mypy_cache' -exec rm -rf {} +",
-    "find . -type d -name '.ruff_cache' -exec rm -rf {} +",
-    "find . -type d -name '.pytest_cache' -exec rm -rf {} +",
-]
+"npm:oh-my-opencode" = "latest"
+"npm:oh-my-claude-sisyphus" = "latest"
+"npm:oh-my-codex" = "latest"
+# "npm:bmad-method" = "latest"
 
-[tasks.prune]
-depends = ["prune:*"]
+ast-grep = "latest"
+"npm:typescript-language-server" = "latest"
+"pipx:pyright" = "latest"
+
+[task_config]
+includes = [".config/mise/tasks/*.toml"]
 
 [settings]
+env_shell_expand = true
 
 [settings.npm]
-bun = true
+package_manager = "bun"
 
 [settings.pipx]
 uvx = true
+
+[settings.python]
+uv_venv_auto = true
+
+[settings.status]
+show_env = true
+show_tools = true
+truncate = true
+
+[shell_alias]
+mrun = "{{mise_bin}} run"
+mx = "{{mise_bin}} exec"
+
+ghost = "open -na Ghostty.app"
+warp = 'open "warp://action/new_tab?path=${1:-$(pwd)}"'  # https://docs.warp.dev/terminal/more-features/uri-scheme
+
+serena = "uvx --from git+https://github.com/oraios/serena serena"
+tokscale = "bunx --bun tokscale@latest"
+qmd = "{{mise_bin}} exec bun@latest -- bunx --bun @tobilu/qmd"

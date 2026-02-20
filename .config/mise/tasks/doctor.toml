@@ -1,0 +1,22 @@
+[doctor]
+description = "Diagnose environment"
+shell = "bash -c"
+usage = '''
+arg "<tool>" {
+  choices "all" "brew" "mise" "kiro-cli"
+  default "all"
+}
+'''
+run = '''
+#!/usr/bin/env bash
+tool="${usage_tool}"
+if [ "$tool" = "all" ] || [ "$tool" = "brew" ]; then
+  brew doctor || true
+fi
+if [ "$tool" = "all" ] || [ "$tool" = "mise" ]; then
+  {{mise_bin}} doctor || true
+fi
+if [ "$tool" = "all" ] || [ "$tool" = "kiro-cli" ]; then
+  kiro-cli doctor || true
+fi
+'''
