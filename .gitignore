@@ -1,9 +1,23 @@
+# OS generated
+**/.DS_Store
+
+# IDE / Editor
 **/.vscode/*
 **/.idea/*
 
+# Dependencies
 **/node_modules/
 
+# Environment
 **/.env.local
 **/.env.*.local
 
-**/.DS_Store
+# Tools
+**/mise/config.local.toml
+**/mise/config.*.local.toml
+**/.mise/config.local.toml
+**/.mise/config.*.local.toml
+**/mise.local.toml
+**/mise.*.local.toml
+**/.mise.local.toml
+**/.mise.*.local.toml
