@@ -1,0 +1,13 @@
+["setup:omc"]
+description = "Set up oh-my-claudecode"
+run = ["omc setup", "omc doctor conflicts"]
+hide = true
+
+["setup:omx"]
+description = "Set up oh-my-codex"
+run = ["omx setup", "omx doctor", "omx doctor --team"]
+hide = true
+
+[setup]
+description = "Set up development tools"
+depends = ["setup:*"]
