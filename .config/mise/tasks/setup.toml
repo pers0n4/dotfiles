@@ -1,13 +1,16 @@
+[setup]
+usage = '''
+arg "<tool>" {
+  choices "all" "omc" "omx" "skills"
+  default "all"
+}
+'''
+run = '''
+#!/usr/bin/env bash
+[ "${usage_tool}" = all ] && usage_tool='*'
+exec {{mise_bin}} run "setup:${usage_tool}"
+'''
+
 ["setup:omc"]
-description = "Set up oh-my-claudecode"
 run = ["omc setup", "omc doctor conflicts"]
 hide = true
-
-["setup:omx"]
-description = "Set up oh-my-codex"
-run = ["omx setup", "omx doctor", "omx doctor --team"]
-hide = true
-
-[setup]
-description = "Set up development tools"
-depends = ["setup:*"]

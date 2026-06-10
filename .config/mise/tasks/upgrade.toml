@@ -1,13 +1,20 @@
+[upgrade]
+usage = '''
+arg "<tool>" {
+  choices "all" "brew" "mise"
+  default "all"
+}
+'''
+run = '''
+#!/usr/bin/env bash
+[ "${usage_tool}" = all ] && usage_tool='*'
+exec {{mise_bin}} run "upgrade:${usage_tool}"
+'''
+
 ["upgrade:brew"]
-description = "Upgrade Homebrew packages"
 run = ["brew update", "brew upgrade", "brew cleanup --prune=all"]
 hide = true
 
 ["upgrade:mise"]
-description = "Upgrade mise tools"
 run = ["{{mise_bin}} upgrade", "{{mise_bin}} reshim", "{{mise_bin}} cache prune"]
 hide = true
-
-[upgrade]
-description = "Upgrade Homebrew and mise tools"
-depends = ["upgrade:*"]

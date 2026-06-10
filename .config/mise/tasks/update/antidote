@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#MISE hide=true
+set -Eeuo pipefail
+
+exec zsh -lc 'source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh; antidote update'

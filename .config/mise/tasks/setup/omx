@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+#MISE hide=true
+set -Eeuo pipefail
+
+omx setup
+omx doctor
+omx doctor --team
+uv run --script - <<'PY'
+import json
+import re
+from pathlib import Path
+
+codex_dir = Path.home() / ".codex"
+
+
+def is_omx_hook(hook):
+    omx_hook_pattern = re.compile(r"""(?:^|[\\/])codex-native-hook\.js(?:["'\s]|$)""")
+    return (
+        isinstance(hook, dict)
+        and hook.get("type") == "command"
+        and isinstance(hook.get("command"), str)
+        and omx_hook_pattern.search(hook["command"])
+    )
+
+
+def remove_omx_pre_tool_hook():
+    hooks_path = codex_dir / "hooks.json"
+    if not hooks_path.exists():
+        return
+
+    data = json.loads(hooks_path.read_text(encoding="utf-8"))
+    hooks = data.get("hooks") if isinstance(data.get("hooks"), dict) else {}
+    entries = (
+        hooks.get("PreToolUse") if isinstance(hooks.get("PreToolUse"), list) else []
+    )
+
+    next_entries = []
+    for entry in entries:
+        if not isinstance(entry, dict) or not isinstance(entry.get("hooks"), list):
+            if entry:
+                next_entries.append(entry)
+            continue
+
+        kept = [hook for hook in entry["hooks"] if not is_omx_hook(hook)]
+        if len(kept) == len(entry["hooks"]):
+            next_entries.append(entry)
+        elif kept:
+            next_entries.append({**entry, "hooks": kept})
+
+    if next_entries:
+        hooks["PreToolUse"] = next_entries
+    else:
+        hooks.pop("PreToolUse", None)
+
+    if hooks:
+        data["hooks"] = hooks
+    else:
+        data.pop("hooks", None)
+
+    hooks_path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+    print("Removed OmX-managed PreToolUse hook from ~/.codex/hooks.json")
+
+
+def remove_lore_commit_protocol():
+    agents_path = codex_dir / "AGENTS.md"
+    if not agents_path.exists():
+        return
+
+    LORE_START = "<lore_commit_protocol>"
+    LORE_END = "</lore_commit_protocol>"
+    text = agents_path.read_text(encoding="utf-8")
+    start = text.find(LORE_START)
+    if start == -1:
+        return
+
+    end = text.find(LORE_END, start + len(LORE_START))
+    if end == -1:
+        raise RuntimeError(f"found {LORE_START} without matching {LORE_END}")
+
+    block_end = end + len(LORE_END)
+    if block_end < len(text) and text[block_end] == "\r":
+        block_end += 1
+    if block_end < len(text) and text[block_end] == "\n":
+        block_end += 1
+
+    while start > 0 and text[start - 1] in " \t":
+        start -= 1
+
+    agents_path.write_text(text[:start] + text[block_end:], encoding="utf-8")
+    print("Removed lore_commit_protocol block from ~/.codex/AGENTS.md")
+
+
+remove_omx_pre_tool_hook()
+remove_lore_commit_protocol()
+PY

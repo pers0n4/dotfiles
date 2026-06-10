@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#MISE hide=true
+set -Eeuo pipefail
+
+claude plugin marketplace update
+claude plugin list --json | jq -r '
+  .[] | select(.enabled) |
+  if (.scope == "project" or .scope == "local") and (.projectPath != null) then
+    "(cd \(.projectPath | @sh) && claude plugin update --scope=\(.scope | @sh) \(.id | @sh))"
+  else
+    "claude plugin update --scope=\(.scope | @sh) \(.id | @sh)"
+  end
+' | sort -u | sh

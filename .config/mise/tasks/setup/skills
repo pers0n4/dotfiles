@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#MISE hide=true
+set -Eeuo pipefail
+
+bunx skills add vercel-labs/skills --global --agent codex claude-code --skill find-skills --yes
+bunx skills add vercel-labs/agent-browser --global --agent codex claude-code --skill '*' --yes
+bunx skills add ast-grep/agent-skill --global --agent codex claude-code --skill '*' --yes
+
+GSTACK_DIR="$HOME/.claude/skills/gstack"; [ ! -d "$GSTACK_DIR" ] && git clone --single-branch --depth 1 https://github.com/garrytan/gstack.git "$GSTACK_DIR"; "$GSTACK_DIR/setup" --team
+
+bunx @every-env/compound-plugin install compound-engineering --to codex
+bunx @every-env/compound-plugin cleanup --target codex
+graphify install && graphify install --platform codex
+
+bunx skills add mattpocock/skills --global --agent codex claude-code --skill '*' --yes
+bunx skills add addyosmani/agent-skills --global --agent codex --skill '*' --yes
+bunx skills add kepano/obsidian-skills --global --agent codex --skill '*' --yes
