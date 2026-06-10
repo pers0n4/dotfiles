@@ -51,7 +51,7 @@ ollama = "latest"
 # "npm:bmad-method" = "latest"
 # "pipx:specify-cli" = "latest"
 
-"npm:@agentmemory/agentmemory" = "latest"
+"npm:@agentmemory/agentmemory" = { version = "latest", postinstall = "agentmemory init" }
 "npm:@colbymchenry/codegraph" = { version = "latest", postinstall = "codegraph install --target=claude,codex --location=global --yes" }
 "pipx:graphifyy" = { version = "latest", extras = "pdf,office,mcp,ollama,sql,postgres", postinstall = "graphify install && graphify install --platform codex" }
 "pipx:serena-agent" = { version = "latest", postinstall = "serena setup claude-code && serena setup codex" }
