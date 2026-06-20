@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#MISE hide=true
+set -Eeuo pipefail
+
+claude-mem install --ide claude-code --provider claude --runtime worker
+claude-mem install --ide codex-cli --provider claude --runtime worker

@@ -7,9 +7,16 @@ arg "<tool>" {
 '''
 run = '''
 #!/usr/bin/env bash
-[ "${usage_tool}" = all ] && usage_tool='*'
 exec {{mise_bin}} run "update:${usage_tool}"
 '''
+
+["update:all"]
+depends = ["update:*"]
+hide = true
+
+["update:antidote"]
+run = "exec zsh -lc 'source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh; antidote update'"
+hide = true
 
 ["update:skills"]
 run = "bunx skills update --global"

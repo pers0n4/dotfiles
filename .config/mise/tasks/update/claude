@@ -2,6 +2,7 @@
 #MISE hide=true
 set -Eeuo pipefail
 
+claude update
 claude plugin marketplace update
 claude plugin list --json | jq -r '
   .[] | select(.enabled) |

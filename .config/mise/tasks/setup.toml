@@ -1,16 +1,10 @@
 [setup]
 usage = '''
 arg "<tool>" {
-  choices "all" "omc" "omx" "skills"
-  default "all"
+  choices "claude-mem" "lazycodex" "omc" "omx" "mcp" "plugin" "skills"
 }
 '''
 run = '''
 #!/usr/bin/env bash
-[ "${usage_tool}" = all ] && usage_tool='*'
 exec {{mise_bin}} run "setup:${usage_tool}"
 '''
-
-["setup:omc"]
-run = ["omc setup", "omc doctor conflicts"]
-hide = true

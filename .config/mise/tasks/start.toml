@@ -1,0 +1,16 @@
+[start]
+usage = '''
+arg "<tool>" {
+  choices "codebase-memory-mcp"
+}
+'''
+run = '''
+#!/usr/bin/env bash
+exec {{mise_bin}} run "start:${usage_tool}"
+'''
+
+["start:codebase-memory-mcp"]
+run = [
+  "echo http://localhost:9749 && codebase-memory-mcp --ui=true --port=9749"
+]
+hide = true

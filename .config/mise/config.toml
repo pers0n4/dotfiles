@@ -12,7 +12,6 @@ _.path = [
 ]
 _.python.venv = { path = "{{xdg_data_home}}/mise/venvs/global", create = true, uv_create_args = ["--seed"] }
 
-NODE_ENV = "{{ get_env(name='NODE_ENV', default='local') }}"
 UV_PYTHON = { value = "{{ tools.python.path }}", tools = true }
 
 [tools]
@@ -40,55 +39,46 @@ shfmt = "latest"
 # "pipx:sqruff" = "latest"
 # "pipx:sqlfluff" = "latest"
 
-claude-code = "latest"
 ollama = "latest"
 
 "npm:oh-my-openagent" = "latest"
 "npm:oh-my-claude-sisyphus" = "latest"
 "npm:oh-my-codex" = "latest"
-"npm:lazycodex-ai" = { version = "latest", postinstall = "npx lazycodex-ai install --no-tui --codex-autonomous" }
 "npm:gajae-code" = "latest"
+# "npm:lazycodex-ai" = "latest"
 # "npm:bmad-method" = "latest"
 # "pipx:specify-cli" = "latest"
 
-"npm:@agentmemory/agentmemory" = { version = "latest", postinstall = "agentmemory init" }
+"npm:claude-mem" ={ version = "latest"}
+"pipx:basic-memory" = { version = "latest", postinstall = "claude mcp add --scope=user basic-memory basic-memory mcp; codex mcp add basic-memory bash -c 'uvx basic-memory mcp'" }
+"pipx:serena-agent" = { version = "latest", postinstall = "serena setup claude-code; serena setup codex" }
+
 "npm:@colbymchenry/codegraph" = { version = "latest", postinstall = "codegraph install --target=claude,codex --location=global --yes" }
-"pipx:graphifyy" = { version = "latest", extras = "pdf,office,mcp,ollama,sql,postgres", postinstall = "graphify install && graphify install --platform codex" }
-"pipx:serena-agent" = { version = "latest", postinstall = "serena setup claude-code && serena setup codex" }
-"rtk" = { version = "latest", postinstall = "rtk init -g && rtk init -g --codex" }
+"pipx:graphifyy" = { version = "latest", extras = "pdf,office,mcp,ollama,sql,postgres", postinstall = "graphify install; graphify install --platform codex" }
 
 "npm:agent-browser" = { version = "latest", postinstall = "agent-browser install" }
 "npm:defuddle" = "latest"
-# "github:dolthub/dolt" = "latest"
-# "github:gastownhall/beads" = "latest"
-# "github:Dicklesworthstone/beads_rust" = "latest"
+"cargo:https://github.com/vlwkaos/ir" = "branch:main"
+
+"rtk" = { version = "latest", postinstall = "rtk init -g; rtk init -g --codex" }
+"npm:tokscale" = "latest"
+"npm:codeburn" = "latest"
 
 ast-grep = "latest"
 "npm:typescript-language-server" = "latest"
 "pipx:pyright" = "latest"
 
-"npm:tokscale" = "latest"
-"npm:codeburn" = "latest"
-
-[tools.iii]
-version = "0.11.2"
-version_prefix = "iii/v"
-platforms = { macos-arm64 = { asset_pattern = "iii-aarch64-apple-darwin.tar.gz" }}
-
-[tools.iii-console]
-version = "0.11.2"
-version_prefix = "iii/v"
-platforms = { macos-arm64 = { asset_pattern = "iii-console-aarch64-apple-darwin.tar.gz" }}
-
-[tool_alias]
-iii = "github:iii-hq/iii"
-iii-console = "github:iii-hq/iii"
+[tools."github:DeusData/codebase-memory-mcp"]
+version = "latest"
+platforms = { macos-arm64 = { asset_pattern = "codebase-memory-mcp-ui-darwin-arm64.tar.gz" }}
+postinstall = "codebase-memory-mcp install"
 
 [settings]
 env_shell_expand = true
 npm.package_manager = "bun"
 pipx.uvx = true
 python.uv_venv_auto = "create|source"
+minimum_release_age_excludes = ["github:*", "*pers0n4/*"]
 
 [settings.status]
 show_env = true

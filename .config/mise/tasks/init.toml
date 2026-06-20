@@ -1,0 +1,15 @@
+[init]
+usage = '''
+arg "<tool>" {
+  choices "all" "codegraph"
+  default "all"
+}
+'''
+run = '''
+#!/usr/bin/env bash
+exec {{mise_bin}} run -C "${MISE_ORIGINAL_CWD:-$PWD}" "init:${usage_tool}"
+'''
+
+["init:codegraph"]
+run = "codegraph init && codegraph index"
+hide = true

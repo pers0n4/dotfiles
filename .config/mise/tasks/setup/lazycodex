@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#MISE hide=true
+set -Eeuo pipefail
+
+npx --yes lazycodex-ai@latest install
+npx --yes lazycodex-ai@latest doctor

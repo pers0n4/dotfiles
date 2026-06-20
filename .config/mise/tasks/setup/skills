@@ -2,16 +2,19 @@
 #MISE hide=true
 set -Eeuo pipefail
 
-bunx skills add vercel-labs/skills --global --agent codex claude-code --skill find-skills --yes
-bunx skills add vercel-labs/agent-browser --global --agent codex claude-code --skill '*' --yes
-bunx skills add ast-grep/agent-skill --global --agent codex claude-code --skill '*' --yes
+bunx skills add vercel-labs/skills --global --agent codex --agent claude-code --skill find-skills --yes
+bunx skills add vercel-labs/agent-browser --global --agent codex --agent claude-code --skill '*' --yes
+bunx skills add ast-grep/agent-skill --global --agent codex --agent claude-code --skill '*' --yes
 
-GSTACK_DIR="$HOME/.claude/skills/gstack"; [ ! -d "$GSTACK_DIR" ] && git clone --single-branch --depth 1 https://github.com/garrytan/gstack.git "$GSTACK_DIR"; "$GSTACK_DIR/setup" --team
+GSTACK_DIR="$HOME/.claude/skills/gstack"; [ ! -d "$GSTACK_DIR" ] && git clone --single-branch --depth 1 https://github.com/garrytan/gstack.git "$GSTACK_DIR"; "$GSTACK_DIR/setup"
 
 bunx @every-env/compound-plugin install compound-engineering --to codex
 bunx @every-env/compound-plugin cleanup --target codex
-graphify install && graphify install --platform codex
 
-bunx skills add mattpocock/skills --global --agent codex claude-code --skill '*' --yes
 bunx skills add addyosmani/agent-skills --global --agent codex --skill '*' --yes
+bunx skills add mattpocock/skills --global --yes --agent codex --agent claude-code --skill ask-matt --skill codebase-design --skill diagnosing-bugs --skill domain-modeling --skill grill-me --skill grill-with-docs --skill grilling --skill handoff --skill improve-codebase-architecture --skill prototype --skill setup-matt-pocock-skills --skill tdd --skill teach --skill to-issues --skill to-prd --skill triage --skill writing-great-skills
+
 bunx skills add kepano/obsidian-skills --global --agent codex --skill '*' --yes
+bunx skills add basicmachines-co/basic-memory-skills --global --agent codex --agent claude-code --skill '*' --yes
+
+graphify install; graphify install --platform codex
