@@ -95,6 +95,9 @@ show_env = false
 show_tools = false
 truncate = true
 
+[settings.github]
+credential_command = "gh auth token"
+
 [shell_alias]
 mr = "{{mise_bin}} run"
 mx = "{{mise_bin}} exec"
