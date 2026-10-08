@@ -88,7 +88,7 @@ env_shell_expand = true
 npm.package_manager = "bun"
 pipx.uvx = true
 python.uv_venv_auto = "create|source"
-minimum_release_age_excludes = ["github:*", "*pers0n4/*"]
+minimum_release_age_excludes = ["*pers0n4/*", "npm:gajae-code"]
 
 [settings.status]
 show_env = false
