@@ -1,0 +1,7 @@
+[env]
+_.file = [
+  "{{xdg_config_home}}/mise/.env.production",
+  "{{xdg_config_home}}/mise/.env.production.local",
+  "{{config_root}}/.env.production",
+  "{{config_root}}/.env.production.local",
+]
