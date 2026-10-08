@@ -1,12 +1,23 @@
 #!/usr/bin/env bash
 #MISE hide=true
-set -Eeuo pipefail
+# set -Eeuo pipefail
 
-claude mcp add --scope=user codex codex mcp-server
+# claude mcp add --scope=user codex codex mcp-server
 claude mcp add --scope=user ir ir mcp
-claude mcp add --scope=user --transport http context7 https://mcp.context7.com/mcp --header "Authorization: Bearer $CONTEXT7_API_KEY"
-claude mcp add --scope=user basic-memory -- uvx basic-memory mcp
+claude mcp add --scope=user grepai -- grepai mcp-serve
+claude mcp add --scope=user --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: $CONTEXT7_API_KEY"
+claude mcp add --scope=user --transport http linear https://mcp.linear.app/mcp
 
 codex mcp add ir -- ir mcp
+codex mcp add grepai -- grepai mcp-serve
 codex mcp add context7 --url https://mcp.context7.com/mcp --bearer-token-env-var CONTEXT7_API_KEY
-codex mcp add basic-memory bash -c "uvx basic-memory mcp"
+codex mcp add linear --url https://mcp.linear.app/mcp
+
+codegraph install --target=claude,codex --location=global --yes
+
+gjc mcp add ir ir mcp
+gjc mcp add codegraph -- codegraph serve --mcp
+gjc mcp add grepai -- grepai mcp-serve
+gjc mcp add context7 --type http --url https://mcp.context7.com/mcp --header CONTEXT7_API_KEY=$CONTEXT7_API_KEY
+gjc mcp add linear --type http --url https://mcp.linear.app/mcp --header Authorization="Bearer $LINEAR_API_KEY"
+[[ -x /Applications/Pen.app/Contents/Resources/app.asar.unpacked/out/mcp-server-darwin-arm64 ]] && gjc mcp add pencil -- /Applications/Pen.app/Contents/Resources/app.asar.unpacked/out/mcp-server-darwin-arm64 --app desktop || true
