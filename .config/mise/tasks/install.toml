@@ -1,0 +1,18 @@
+[install]
+usage = '''
+arg "<tool>" {
+  choices "claude" "codex"
+}
+'''
+run = '''
+#!/usr/bin/env bash
+exec {{mise_bin}} run "install:${usage_tool}"
+'''
+
+["install:claude"]
+run = "curl -fsSL https://claude.ai/install.sh | bash"
+hide = true
+
+["install:codex"]
+run = "curl -fsSL https://chatgpt.com/codex/install.sh | sh"
+hide = true
