@@ -101,3 +101,4 @@ credential_command = "gh auth token"
 [shell_alias]
 mr = "{{mise_bin}} run"
 mx = "{{mise_bin}} exec"
+gj = "gjc --mcp-config=$HOME/.gjc/agent/mcp.json"
