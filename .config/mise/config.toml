@@ -58,6 +58,12 @@ hadolint = "latest"  # Dockerfile Containerfile
 "pipx:pyright" = "latest"
 "npm:typescript-language-server" = "latest"
 
+# Security
+betterleaks = "latest"
+# gitleaks = "latest"  # use betterleaks
+osv-scanner = "latest"
+zizmor = "latest"
+
 # AI
 ollama = "latest"
 "npm:oh-my-openagent" = "latest"
