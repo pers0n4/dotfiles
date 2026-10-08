@@ -7,6 +7,7 @@ _.file = [
   "{{config_root}}/.env",
   "{{config_root}}/.env.local",
 ]
+_.path = ["/opt/homebrew/opt/libpq/bin"]
 _.python.venv = { path = "{{xdg_data_home}}/mise/venvs/global", create = true, uv_create_args = ["--seed"] }
 
 UV_PYTHON = { value = "{{ tools.python.path }}", tools = true }
