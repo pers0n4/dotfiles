@@ -68,17 +68,17 @@ oh-my-pi = "latest"
 "npm:gajae-code" = "latest"
 
 # Memory and knowledge
-"npm:claude-mem" ={ version = "latest"}
-"cargo:https://github.com/vlwkaos/ir" = "branch:main"
+"npm:claude-mem" = "latest"
+"github:vlwkaos/ir" = "latest"
 
 # Browser and content extraction
-"npm:agent-browser" = { version = "latest", postinstall = "agent-browser install" }
+agent-browser = { version = "latest", postinstall = "agent-browser install" }
 "npm:defuddle" = "latest"
 
 # Code exploration and search
 ast-grep = "latest"
-"npm:@colbymchenry/codegraph" = { version = "latest", postinstall = "codegraph install --target=claude,codex --location=global --yes" }
-"pipx:graphifyy" = { version = "latest", extras = "pdf,office,mcp,ollama,sql,postgres", postinstall = "graphify install; graphify install --platform codex" }
+codegraph = "latest"
+"pipx:graphifyy" = { version = "latest", extras = "pdf,office,mcp,ollama,sql,postgres" }
 # "github:DeusData/codebase-memory-mcp" = { version = "latest", platforms = { macos-arm64 = { asset_pattern = "codebase-memory-mcp-ui-darwin-arm64.tar.gz" } }, postinstall = "codebase-memory-mcp install" }
 
 [settings]
