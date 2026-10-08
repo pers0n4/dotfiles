@@ -7,9 +7,6 @@ _.file = [
   "{{config_root}}/.env",
   "{{config_root}}/.env.local",
 ]
-_.path = [
-  "{{env.HOME}}/.agentmemory/bin",
-]
 _.python.venv = { path = "{{xdg_data_home}}/mise/venvs/global", create = true, uv_create_args = ["--seed"] }
 
 UV_PYTHON = { value = "{{ tools.python.path }}", tools = true }
@@ -66,17 +63,10 @@ zizmor = "latest"
 
 # AI
 ollama = "latest"
-"npm:oh-my-openagent" = "latest"
-"npm:oh-my-claude-sisyphus" = "latest"
-"npm:oh-my-codex" = "latest"
 "npm:gajae-code" = "latest"
-# "npm:lazycodex-ai" = "latest"
-# "npm:bmad-method" = "latest"
-# "pipx:specify-cli" = "latest"
 
 # Memory and knowledge
 "npm:claude-mem" ={ version = "latest"}
-"pipx:basic-memory" = { version = "latest", postinstall = "claude mcp add --scope=user basic-memory basic-memory mcp; codex mcp add basic-memory bash -c 'uvx basic-memory mcp'" }
 "cargo:https://github.com/vlwkaos/ir" = "branch:main"
 
 # Browser and content extraction
@@ -87,17 +77,7 @@ ollama = "latest"
 ast-grep = "latest"
 "npm:@colbymchenry/codegraph" = { version = "latest", postinstall = "codegraph install --target=claude,codex --location=global --yes" }
 "pipx:graphifyy" = { version = "latest", extras = "pdf,office,mcp,ollama,sql,postgres", postinstall = "graphify install; graphify install --platform codex" }
-"pipx:serena-agent" = { version = "latest", postinstall = "serena setup claude-code; serena setup codex" }
-
-# Token usage
-"rtk" = { version = "latest", postinstall = "rtk init -g; rtk init -g --codex" }
-"npm:tokscale" = "latest"
-"npm:codeburn" = "latest"
-
-[tools."github:DeusData/codebase-memory-mcp"]
-version = "latest"
-platforms = { macos-arm64 = { asset_pattern = "codebase-memory-mcp-ui-darwin-arm64.tar.gz" }}
-postinstall = "codebase-memory-mcp install"
+# "github:DeusData/codebase-memory-mcp" = { version = "latest", platforms = { macos-arm64 = { asset_pattern = "codebase-memory-mcp-ui-darwin-arm64.tar.gz" } }, postinstall = "codebase-memory-mcp install" }
 
 [settings]
 env_shell_expand = true

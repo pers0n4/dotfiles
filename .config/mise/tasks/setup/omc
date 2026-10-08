@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-#MISE hide=true
-set -Eeuo pipefail
-
-omc setup
-omc doctor conflicts

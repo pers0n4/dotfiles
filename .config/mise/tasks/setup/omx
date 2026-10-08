@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-#MISE hide=true
-set -Eeuo pipefail
-
-omx setup --scope=user --merge-agents
-omx doctor
-omx doctor --team

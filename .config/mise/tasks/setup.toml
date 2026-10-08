@@ -1,7 +1,7 @@
 [setup]
 usage = '''
 arg "<tool>" {
-  choices "claude-mem" "lazycodex" "omc" "omx" "mcp" "plugin" "skills"
+  choices "mcp" "plugin" "skills"
 }
 '''
 run = '''
