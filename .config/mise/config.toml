@@ -15,13 +15,13 @@ _.python.venv = { path = "{{xdg_data_home}}/mise/venvs/global", create = true, u
 UV_PYTHON = { value = "{{ tools.python.path }}", tools = true }
 
 [tools]
-python = "{{ get_env(name='PYTHON_VERSION', default='3.12') }}"
-node = "{{ get_env(name='NODE_VERSION', default='lts') }}"
+python = "3.12"
+node = "lts"
 deno = "latest"
 bun = "latest"
 go = "latest"
-rust = "latest"
-java = "temurin-21"
+rust = { version = "latest", components = "rust-analyzer" }
+java = "temurin-25"
 
 usage = "latest"  # https://mise.jdx.dev/installing-mise.html#autocompletion
 watchexec = "latest"  # https://mise.jdx.dev/cli/watch.html#mise-watch
