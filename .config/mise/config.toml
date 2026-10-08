@@ -15,6 +15,7 @@ _.python.venv = { path = "{{xdg_data_home}}/mise/venvs/global", create = true, u
 UV_PYTHON = { value = "{{ tools.python.path }}", tools = true }
 
 [tools]
+# Runtimes
 python = "3.12"
 node = "lts"
 deno = "latest"
@@ -23,24 +24,32 @@ go = "latest"
 rust = { version = "latest", components = "rust-analyzer" }
 java = "temurin-25"
 
+# mise support
 usage = "latest"  # https://mise.jdx.dev/installing-mise.html#autocompletion
 watchexec = "latest"  # https://mise.jdx.dev/cli/watch.html#mise-watch
 cargo-binstall = "latest"  # https://mise.jdx.dev/tips-and-tricks.html#cargo-binstall
 
-pnpm = "latest"
+# Package managers
 uv = "latest"
+pnpm = "latest"
 
+# Git
 cocogitto = "latest"
 git-cliff = "latest"
 prek = "latest"
-# pre-commit = "latest"
+# pre-commit = "latest"  # use prek
 
-shfmt = "latest"
-# "pipx:sqruff" = "latest"
-# "pipx:sqlfluff" = "latest"
+# Formatters and linters
+shfmt = "latest"  # .sh .bash .bats
+# "pipx:sqruff" = "latest"  # .sql
+# "pipx:sqlfluff" = "latest"  # .sql
 
+# Language servers
+"pipx:pyright" = "latest"
+"npm:typescript-language-server" = "latest"
+
+# AI
 ollama = "latest"
-
 "npm:oh-my-openagent" = "latest"
 "npm:oh-my-claude-sisyphus" = "latest"
 "npm:oh-my-codex" = "latest"
@@ -49,24 +58,25 @@ ollama = "latest"
 # "npm:bmad-method" = "latest"
 # "pipx:specify-cli" = "latest"
 
+# Memory and knowledge
 "npm:claude-mem" ={ version = "latest"}
 "pipx:basic-memory" = { version = "latest", postinstall = "claude mcp add --scope=user basic-memory basic-memory mcp; codex mcp add basic-memory bash -c 'uvx basic-memory mcp'" }
-"pipx:serena-agent" = { version = "latest", postinstall = "serena setup claude-code; serena setup codex" }
-
-"npm:@colbymchenry/codegraph" = { version = "latest", postinstall = "codegraph install --target=claude,codex --location=global --yes" }
-"pipx:graphifyy" = { version = "latest", extras = "pdf,office,mcp,ollama,sql,postgres", postinstall = "graphify install; graphify install --platform codex" }
-
-"npm:agent-browser" = { version = "latest", postinstall = "agent-browser install" }
-"npm:defuddle" = "latest"
 "cargo:https://github.com/vlwkaos/ir" = "branch:main"
 
+# Browser and content extraction
+"npm:agent-browser" = { version = "latest", postinstall = "agent-browser install" }
+"npm:defuddle" = "latest"
+
+# Code exploration and search
+ast-grep = "latest"
+"npm:@colbymchenry/codegraph" = { version = "latest", postinstall = "codegraph install --target=claude,codex --location=global --yes" }
+"pipx:graphifyy" = { version = "latest", extras = "pdf,office,mcp,ollama,sql,postgres", postinstall = "graphify install; graphify install --platform codex" }
+"pipx:serena-agent" = { version = "latest", postinstall = "serena setup claude-code; serena setup codex" }
+
+# Token usage
 "rtk" = { version = "latest", postinstall = "rtk init -g; rtk init -g --codex" }
 "npm:tokscale" = "latest"
 "npm:codeburn" = "latest"
-
-ast-grep = "latest"
-"npm:typescript-language-server" = "latest"
-"pipx:pyright" = "latest"
 
 [tools."github:DeusData/codebase-memory-mcp"]
 version = "latest"
