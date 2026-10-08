@@ -40,7 +40,17 @@ prek = "latest"
 # pre-commit = "latest"  # use prek
 
 # Formatters and linters
+editorconfig-checker = "latest"  # *
+typos = "latest"  # *
+lychee = "latest"  # .md .mdx .html .htm .txt .xml
 shfmt = "latest"  # .sh .bash .bats
+shellcheck = "latest"  # .sh .bash .ksh
+ruff = "latest"  # .py .pyi .ipynb
+tombi = "latest"  # .toml
+yamlfmt = "latest"  # .yaml .yml
+yamllint = "latest"  # .yaml .yml
+rumdl = "latest"  # .md .mdx .markdown
+hadolint = "latest"  # Dockerfile Containerfile
 # "pipx:sqruff" = "latest"  # .sql
 # "pipx:sqlfluff" = "latest"  # .sql
 
