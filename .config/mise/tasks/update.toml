@@ -1,7 +1,7 @@
 [update]
 usage = '''
 arg "<tool>" {
-  choices "all" "antidote" "claude" "skills"
+  choices "all" "antidote" "claude" "codex"
   default "all"
 }
 '''
@@ -18,6 +18,10 @@ hide = true
 run = "exec zsh -lc 'source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh; antidote update'"
 hide = true
 
-["update:skills"]
-run = "bunx skills update --global"
+["update:claude"]
+run = "claude update && claude plugin marketplace update"
+hide = true
+
+["update:codex"]
+run = "codex update"
 hide = true
