@@ -63,6 +63,8 @@ zizmor = "latest"
 
 # AI
 ollama = "latest"
+pi = "latest"
+oh-my-pi = "latest"
 "npm:gajae-code" = "latest"
 
 # Memory and knowledge
