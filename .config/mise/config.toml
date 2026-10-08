@@ -91,8 +91,8 @@ python.uv_venv_auto = "create|source"
 minimum_release_age_excludes = ["github:*", "*pers0n4/*"]
 
 [settings.status]
-show_env = true
-show_tools = true
+show_env = false
+show_tools = false
 truncate = true
 
 [shell_alias]
