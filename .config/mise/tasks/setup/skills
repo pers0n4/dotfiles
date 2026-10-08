@@ -2,19 +2,27 @@
 #MISE hide=true
 set -Eeuo pipefail
 
-bunx skills add vercel-labs/skills --global --agent codex --agent claude-code --skill find-skills --yes
-bunx skills add vercel-labs/agent-browser --global --agent codex --agent claude-code --skill '*' --yes
-bunx skills add ast-grep/agent-skill --global --agent codex --agent claude-code --skill '*' --yes
+npx --yes skills@latest update --global
 
-GSTACK_DIR="$HOME/.claude/skills/gstack"; [ ! -d "$GSTACK_DIR" ] && git clone --single-branch --depth 1 https://github.com/garrytan/gstack.git "$GSTACK_DIR"; "$GSTACK_DIR/setup"
+npx --yes skills add vercel-labs/skills --agent claude-code codex --skill find-skills --global --yes
+npx --yes skills add vercel-labs/agent-browser --agent codex pi --skill '*' --global --yes
+npx --yes skills add vercel-labs/agent-skills --agent claude-code codex pi --skill react-best-practices web-design-guidelines  --global --yes
 
-bunx @every-env/compound-plugin install compound-engineering --to codex
-bunx @every-env/compound-plugin cleanup --target codex
+npx --yes skills add addyosmani/agent-skills --agent pi --skill '*' --global --yes
+npx --yes skills add mattpocock/skills/skills/engineering --agent pi --skill '*' --global --yes
+npx --yes skills add mattpocock/skills/skills/productivity --agent pi --skill '*' --global --yes
 
-bunx skills add addyosmani/agent-skills --global --agent codex --skill '*' --yes
-bunx skills add mattpocock/skills --global --yes --agent codex --agent claude-code --skill ask-matt --skill codebase-design --skill diagnosing-bugs --skill domain-modeling --skill grill-me --skill grill-with-docs --skill grilling --skill handoff --skill improve-codebase-architecture --skill prototype --skill setup-matt-pocock-skills --skill tdd --skill teach --skill to-issues --skill to-prd --skill triage --skill writing-great-skills
+npx --yes skills add supabase/agent-skills --agent codex pi --skill supabase-postgres-best-practices --global --yes
 
-bunx skills add kepano/obsidian-skills --global --agent codex --skill '*' --yes
-bunx skills add basicmachines-co/basic-memory-skills --global --agent codex --agent claude-code --skill '*' --yes
+npx --yes skills add ast-grep/agent-skill --agent codex pi --skill '*' --global --yes
+graphify install; graphify install --platform codex; graphify install --platform pi
+npx --yes skills add yoanbernabeu/grepai-skills --agent codex pi --skill grepai-init grepai-config-reference grepai-ignore-patterns grepai-embeddings-ollama grepai-storage-gob grepai-watch-daemon grepai-chunking grepai-search-basics grepai-search-advanced grepai-search-tips grepai-search-boosting grepai-trace-callers grepai-trace-callees grepai-trace-graph grepai-mcp-tools grepai-workspaces grepai-languages grepai-troubleshooting --global --yes
 
-graphify install; graphify install --platform codex
+npx --yes skills add kepano/obsidian-skills --agent codex pi --skill '*' --global --yes
+npx --yes skills add epoko77-ai/im-not-ai --agent codex pi --skill '*' --global --yes
+npx --yes skills add tt-a1i/archify --agent claude-code codex pi --skill archify --global --yes
+
+npx --yes skills add https://github.com/stablyai/orca --agent claude-code codex pi --skill computer-use linear-tickets orca-cli orca-emulator orca-emulator-android orca-linear orca-per-workspace-env orchestration --global --yes
+
+npx --yes skills add ncredibleai/skills --agent pi --skill '*' --global --yes
+gjc setup defaults --force
