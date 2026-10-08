@@ -1,7 +1,7 @@
 [init]
 usage = '''
 arg "<tool>" {
-  choices "all" "codegraph"
+  choices "all" "codegraph" "grepai" "ir"
   default "all"
 }
 '''
@@ -11,5 +11,13 @@ exec {{mise_bin}} run -C "${MISE_ORIGINAL_CWD:-$PWD}" "init:${usage_tool}"
 '''
 
 ["init:codegraph"]
-run = "codegraph init && codegraph index"
+run = ["codegraph init",  "codegraph index"]
+hide = true
+
+["init:grepai"]
+run = ["grepai init"]
+hide = true
+
+["init:ir"]
+run = ["ir collection add $1 $2", "ir preprocessor bind ko $1"]
 hide = true
