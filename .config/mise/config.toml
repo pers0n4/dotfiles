@@ -33,7 +33,6 @@ uv = "latest"
 pnpm = "latest"
 
 # Git
-cocogitto = "latest"
 git-cliff = "latest"
 prek = "latest"
 # pre-commit = "latest"  # use prek
