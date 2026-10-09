@@ -1,0 +1,48 @@
+# OS-generated files
+**/.DS_Store
+
+# IDE and editor files
+**/.idea/*
+**/.vscode/*
+
+# Dependencies
+**/node_modules
+
+# Local environment overrides
+**/.env.*.local
+**/.env.local
+
+# mise local configuration
+**/mise/config.local.toml
+**/mise/config.*.local.toml
+**/.mise/config.local.toml
+**/.mise/config.*.local.toml
+**/mise.local.toml
+**/mise.*.local.toml
+**/.mise.local.toml
+**/.mise.*.local.toml
+
+# Temporary files
+**/.temp
+**/.tmp
+**/temp
+**/tmp
+
+# AI agent state
+**/.gjc
+**/.omc
+**/.omo
+**/.omx
+
+# Worktrees and issue data
+**/.issues
+**/.worktrees
+
+# Generated artifacts
+**/artifacts
+**/graphify-out
+**/.archify
+
+# Code indexing
+**/.codegraph
+**/.grepai
