@@ -15,9 +15,9 @@ codex mcp add linear --url https://mcp.linear.app/mcp
 
 codegraph install --target=claude,codex --location=global --yes
 
-gjc mcp add ir ir mcp
-gjc mcp add codegraph -- codegraph serve --mcp
-gjc mcp add grepai -- grepai mcp-serve
-gjc mcp add context7 --type http --url https://mcp.context7.com/mcp --header CONTEXT7_API_KEY=$CONTEXT7_API_KEY
-gjc mcp add linear --type http --url https://mcp.linear.app/mcp --header Authorization="Bearer $LINEAR_API_KEY"
-[[ -x /Applications/Pen.app/Contents/Resources/app.asar.unpacked/out/mcp-server-darwin-arm64 ]] && gjc mcp add pencil -- /Applications/Pen.app/Contents/Resources/app.asar.unpacked/out/mcp-server-darwin-arm64 --app desktop || true
+gjc mcp add ir --force --timeout 5000 -- ir mcp
+gjc mcp add codegraph --force --timeout 5000 -- codegraph serve --mcp
+gjc mcp add grepai --force --timeout 5000 -- grepai mcp-serve
+gjc mcp add context7 --force --timeout 5000 --type http --url https://mcp.context7.com/mcp --header CONTEXT7_API_KEY=$CONTEXT7_API_KEY
+gjc mcp add linear --force --timeout 5000 --type http --url https://mcp.linear.app/mcp --header Authorization="Bearer $LINEAR_API_KEY"
+[[ -x /Applications/Pen.app/Contents/Resources/app.asar.unpacked/out/mcp-server-darwin-arm64 ]] && gjc mcp add pencil --force --timeout 5000 -- /Applications/Pen.app/Contents/Resources/app.asar.unpacked/out/mcp-server-darwin-arm64 --app desktop || true
