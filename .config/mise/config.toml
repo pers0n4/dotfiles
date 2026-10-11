@@ -66,7 +66,7 @@ zizmor = "latest"
 ollama = "latest"
 pi = "latest"
 oh-my-pi = "latest"
-"npm:gajae-code" = "latest"
+"npm:gajae-code" = { version = "latest", postinstall = "gjc session list" }
 
 # Memory and knowledge
 "npm:claude-mem" = "latest"
