@@ -2,20 +2,41 @@
 #MISE hide=true
 set -Eeuo pipefail
 
+## Claude
+
+# Integrations
+claude plugin marketplace add jarrodwatts/claude-hud && claude plugin install --scope=user claude-hud@claude-hud
 claude plugin marketplace add wakatime/claude-code-wakatime && claude plugin install --scope=user claude-code-wakatime@wakatime
 claude plugin marketplace add warpdotdev/claude-code-warp && claude plugin install --scope=user warp@claude-code-warp
-claude plugin marketplace add jarrodwatts/claude-hud && claude plugin install --scope=user claude-hud@claude-hud
-claude plugin marketplace add openai/codex-plugin-cc && claude plugin install --scope=user codex@openai-codex
-claude plugin marketplace add EveryInc/compound-engineering-plugin && claude plugin install --scope=user compound-engineering
+# claude plugin marketplace add openai/codex-plugin-cc && claude plugin install --scope=user codex@openai-codex
+
+# Workflow
+claude plugin marketplace add Yeachan-Heo/oh-my-claudecode && claude plugin install --scope=user oh-my-claudecode@omc
+claude plugin marketplace add EveryInc/compound-engineering-plugin && claude plugin install --scope=user compound-engineering@compound-engineering-plugin
 claude plugin marketplace add addyosmani/agent-skills && claude plugin install --scope=user agent-skills@addy-agent-skills
-claude plugin marketplace add Yeachan-Heo/oh-my-claudecode && claude plugin install --scope=user oh-my-claudecode
-claude plugin marketplace add kepano/obsidian-skills && claude plugin install --scope=user obsidian@obsidian-skills
-claude plugin marketplace add epoko77-ai/im-not-ai && claude plugin install --scope=user humanize-korean@im-not-ai
-claude plugin marketplace add thedotmack/claude-mem && claude plugin install --scope=user claude-mem
+claude plugin marketplace add mattpocock/skills && claude plugin install --scope=user mattpocock-skills@mattpocock
+
+# Memory & Context
+claude plugin marketplace add thedotmack/claude-mem && claude plugin install --scope=user claude-mem@thedotmack
 claude plugin marketplace add mksglu/context-mode && claude plugin install --scope=user context-mode@context-mode
-claude plugin marketplace add vercel-labs/agent-browser && claude plugin install --scope=user agent-browser@agent-browser
+
+# Code Analysis
 claude plugin marketplace add ast-grep/agent-skill && claude plugin install --scope=user ast-grep@ast-grep-marketplace
 claude plugin marketplace add yoanbernabeu/grepai-skills && for p in configuration embeddings storage indexing search trace integration advanced; do claude plugin install --scope=user "grepai-$p@grepai-skills"; done
 
+# Domain
+claude plugin marketplace add supabase/agent-skills && claude plugin install --scope=user postgres-best-practices@supabase-agent-skills
+claude plugin marketplace add vercel-labs/agent-browser && claude plugin install --scope=user agent-browser@agent-browser
+
+# Docs & Writing
+claude plugin marketplace add epoko77-ai/im-not-ai && claude plugin install --scope=user humanize-korean@im-not-ai
+claude plugin marketplace add kepano/obsidian-skills && claude plugin install --scope=user obsidian@obsidian-skills
+
+## Codex
+
+# Workflow
 codex plugin marketplace add EveryInc/compound-engineering-plugin && codex plugin add compound-engineering@compound-engineering-plugin
+codex plugin marketplace add addyosmani/agent-skills && codex plugin add agent-skills@agent-skills
+
+# Memory & Context
 codex plugin marketplace add mksglu/context-mode && codex plugin add context-mode@context-mode

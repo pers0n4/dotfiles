@@ -2,27 +2,29 @@
 #MISE hide=true
 set -Eeuo pipefail
 
-npx --yes skills@latest update --global
+# Skill Management
+npx --yes skills add vercel-labs/skills --agent claude-code codex pi --skill find-skills --global --yes
 
-npx --yes skills add vercel-labs/skills --agent claude-code codex --skill find-skills --global --yes
-npx --yes skills add vercel-labs/agent-browser --agent codex pi --skill '*' --global --yes
-npx --yes skills add vercel-labs/agent-skills --agent claude-code codex pi --skill react-best-practices web-design-guidelines  --global --yes
-
+# Workflow
 npx --yes skills add addyosmani/agent-skills --agent pi --skill '*' --global --yes
-npx --yes skills add mattpocock/skills/skills/engineering --agent pi --skill '*' --global --yes
-npx --yes skills add mattpocock/skills/skills/productivity --agent pi --skill '*' --global --yes
+npx --yes skills add mattpocock/skills/skills/engineering --agent codex pi --skill '*' --global --yes
+npx --yes skills add mattpocock/skills/skills/productivity --agent codex pi --skill '*' --global --yes
+npx --yes skills add ncredibleai/skills --agent claude-code codex pi --skill '*' --global --yes
 
-npx --yes skills add supabase/agent-skills --agent codex pi --skill supabase-postgres-best-practices --global --yes
-
+# Code Analysis
 npx --yes skills add ast-grep/agent-skill --agent codex pi --skill '*' --global --yes
 graphify install; graphify install --platform codex; graphify install --platform pi
 npx --yes skills add yoanbernabeu/grepai-skills --agent codex pi --skill grepai-init grepai-config-reference grepai-ignore-patterns grepai-embeddings-ollama grepai-storage-gob grepai-watch-daemon grepai-chunking grepai-search-basics grepai-search-advanced grepai-search-tips grepai-search-boosting grepai-trace-callers grepai-trace-callees grepai-trace-graph grepai-mcp-tools grepai-workspaces grepai-languages grepai-troubleshooting --global --yes
 
-npx --yes skills add kepano/obsidian-skills --agent codex pi --skill '*' --global --yes
+# Domain
+npx --yes skills add supabase/agent-skills --agent codex pi --skill supabase-postgres-best-practices --global --yes
+npx --yes skills add vercel-labs/agent-browser --agent codex pi --skill '*' --global --yes
+npx --yes skills add vercel-labs/agent-skills --agent claude-code codex pi --skill vercel-react-best-practices web-design-guidelines --global --yes
+
+# Docs & Writing
 npx --yes skills add epoko77-ai/im-not-ai --agent codex pi --skill '*' --global --yes
+npx --yes skills add kepano/obsidian-skills --agent codex pi --skill '*' --global --yes
 npx --yes skills add tt-a1i/archify --agent claude-code codex pi --skill archify --global --yes
 
-npx --yes skills add https://github.com/stablyai/orca --agent claude-code codex pi --skill computer-use linear-tickets orca-cli orca-emulator orca-emulator-android orca-linear orca-per-workspace-env orchestration --global --yes
-
-npx --yes skills add ncredibleai/skills --agent pi --skill '*' --global --yes
-gjc setup defaults --force
+# Agent Tools
+npx --yes skills add stablyai/orca --agent claude-code codex pi --skill computer-use linear-tickets orca-cli orca-emulator orca-emulator-android orca-linear orca-per-workspace-env orchestration --global --yes
