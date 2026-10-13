@@ -1,0 +1,3 @@
+[hook "coauthor-trailer-lint"]
+	command = ~/iCloud/git/dotfiles/.config/git/hooks/coauthor-trailer-lint
+	event = commit-msg
