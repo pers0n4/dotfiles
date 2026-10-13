@@ -17,7 +17,6 @@ IR_CONFIG_DIR = "{{xdg_config_home}}/ir"
 # Runtimes
 python = "3.12"
 node = "lts"
-deno = "latest"
 bun = "latest"
 go = "latest"
 rust = { version = "latest", components = "rust-analyzer" }
@@ -57,10 +56,10 @@ hadolint = "latest"  # Dockerfile Containerfile
 "npm:typescript-language-server" = "latest"
 
 # Security
-betterleaks = "latest"
+betterleaks = "latest"  # *
 # gitleaks = "latest"  # use betterleaks
-osv-scanner = "latest"
-zizmor = "latest"
+osv-scanner = "latest"  # uv.lock requirements.txt package-lock.json pnpm-lock.yaml bun.lock go.mod Cargo.lock pom.xml gradle.lockfile
+zizmor = "latest"  # .github/workflows/*.yml action.yml dependabot.yml .pre-commit-config.yaml
 
 # AI
 ollama = "latest"
