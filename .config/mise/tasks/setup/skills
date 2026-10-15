@@ -5,6 +5,9 @@ set -Eeuo pipefail
 # Skill Management
 npx --yes skills add vercel-labs/skills --agent claude-code codex pi --skill find-skills --global --yes
 
+# Local Skills
+npx --yes skills add "$HOME/iCloud/git/dotfiles/skills" --agent claude-code codex pi --skill '*' --global --yes
+
 # Workflow
 npx --yes skills add addyosmani/agent-skills --agent pi --skill '*' --global --yes
 npx --yes skills add mattpocock/skills/skills/engineering --agent codex pi --skill '*' --global --yes
