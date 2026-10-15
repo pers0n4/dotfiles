@@ -1,26 +1,10 @@
 # OS-generated files
 **/.DS_Store
+**/._*
 
 # IDE and editor files
 **/.idea/*
 **/.vscode/*
-
-# Dependencies
-**/node_modules
-
-# Local environment overrides
-**/.env.*.local
-**/.env.local
-
-# mise local configuration
-**/mise/config.local.toml
-**/mise/config.*.local.toml
-**/.mise/config.local.toml
-**/.mise/config.*.local.toml
-**/mise.local.toml
-**/mise.*.local.toml
-**/.mise.local.toml
-**/.mise.*.local.toml
 
 # Temporary files
 **/.temp
@@ -28,21 +12,49 @@
 **/temp
 **/tmp
 
+# Environment secrets; keep templates versionable
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.*.example
+!**/.env.sample
+!**/.env.template
+
+# mise local configuration
+# Config discovery overrides (separate from config merge precedence)
+**/mise/miserc.local.toml
+**/.miserc.local.toml
+# Config overrides grouped from lower to higher precedence within a directory
+**/.mise/conf.d/*.local.toml
+**/mise/conf.d/*.local.toml
+**/.mise/config.local.toml
+**/mise/config.local.toml
+**/mise.local.toml
+**/.mise.local.toml
+**/.mise/config.*.local.toml
+**/mise/config.*.local.toml
+**/mise.*.local.toml
+**/.mise.*.local.toml
+
+# Worktrees and issue data
+**/.issues
+**/.worktrees
+
 # AI agent state
 **/.gjc
 **/.omc
 **/.omo
 **/.omx
 
-# Worktrees and issue data
-**/.issues
-**/.worktrees
+# Code indexing
+**/.codegraph
+**/.grepai
+
+# Dependencies
+**/node_modules
+**/__pycache__
 
 # Generated artifacts
 **/artifacts
 **/graphify-out
 **/.archify
-
-# Code indexing
-**/.codegraph
-**/.grepai
