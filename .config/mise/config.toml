@@ -63,8 +63,8 @@ zizmor = "latest"  # .github/workflows/*.yml action.yml dependabot.yml .pre-comm
 
 # AI and agent tooling
 "npm:gajae-code" = { version = "latest", postinstall = "gjc session list" }
+"npm:omo-ai" = "latest"
 oh-my-pi = "latest"
-ollama = "latest"
 pi = "latest"
 "pypi:git+https://github.com/agentskills/agentskills.git#subdirectory=skills-ref" = "main"
 
@@ -87,7 +87,7 @@ env_shell_expand = true
 npm.package_manager = "bun"
 pipx.uvx = true
 python.uv_venv_auto = "create|source"
-minimum_release_age_excludes = ["*pers0n4/*", "npm:gajae-code"]
+minimum_release_age_excludes = ["*pers0n4/*", "npm:gajae-code", "npm:omo-ai"]
 
 [settings.status]
 show_env = false

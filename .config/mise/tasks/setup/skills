@@ -16,13 +16,17 @@ npx --yes skills add ncredibleai/skills --agent claude-code codex pi --skill '*'
 
 # Code Analysis
 npx --yes skills add ast-grep/agent-skill --agent codex pi --skill '*' --global --yes
-graphify install; graphify install --platform codex; graphify install --platform pi
 npx --yes skills add yoanbernabeu/grepai-skills --agent codex pi --skill grepai-init grepai-config-reference grepai-ignore-patterns grepai-embeddings-ollama grepai-storage-gob grepai-watch-daemon grepai-chunking grepai-search-basics grepai-search-advanced grepai-search-tips grepai-search-boosting grepai-trace-callers grepai-trace-callees grepai-trace-graph grepai-mcp-tools grepai-workspaces grepai-languages grepai-troubleshooting --global --yes
+graphify install; graphify install --platform codex; graphify install --platform pi
 
 # Domain
 npx --yes skills add supabase/agent-skills --agent codex pi --skill supabase-postgres-best-practices --global --yes
 npx --yes skills add vercel-labs/agent-browser --agent codex pi --skill '*' --global --yes
+
+# Design
+npx --yes skills add Leonxlnx/taste-skill --agent pi --skill design-taste-frontend --global --yes
 npx --yes skills add vercel-labs/agent-skills --agent claude-code codex pi --skill vercel-react-best-practices web-design-guidelines --global --yes
+npx --yes impeccable install --providers=claude,codex,pi,omp --scope=global --yes
 
 # Docs & Writing
 npx --yes skills add epoko77-ai/im-not-ai --agent codex pi --skill '*' --global --yes

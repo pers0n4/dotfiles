@@ -5,15 +5,15 @@ set -Eeuo pipefail
 ## Claude
 
 # Integrations
-claude plugin marketplace add jarrodwatts/claude-hud && claude plugin install --scope=user claude-hud@claude-hud
 claude plugin marketplace add wakatime/claude-code-wakatime && claude plugin install --scope=user claude-code-wakatime@wakatime
 claude plugin marketplace add warpdotdev/claude-code-warp && claude plugin install --scope=user warp@claude-code-warp
+claude plugin marketplace add jarrodwatts/claude-hud && claude plugin install --scope=user claude-hud@claude-hud
 # claude plugin marketplace add openai/codex-plugin-cc && claude plugin install --scope=user codex@openai-codex
 
 # Workflow
-claude plugin marketplace add Yeachan-Heo/oh-my-claudecode && claude plugin install --scope=user oh-my-claudecode@omc
-claude plugin marketplace add EveryInc/compound-engineering-plugin && claude plugin install --scope=user compound-engineering@compound-engineering-plugin
 claude plugin marketplace add addyosmani/agent-skills && claude plugin install --scope=user agent-skills@addy-agent-skills
+claude plugin marketplace add EveryInc/compound-engineering-plugin && claude plugin install --scope=user compound-engineering@compound-engineering-plugin
+claude plugin marketplace add Yeachan-Heo/oh-my-claudecode && claude plugin install --scope=user oh-my-claudecode@omc
 claude plugin marketplace add mattpocock/skills && claude plugin install --scope=user mattpocock-skills@mattpocock
 
 # Memory & Context
@@ -25,8 +25,11 @@ claude plugin marketplace add ast-grep/agent-skill && claude plugin install --sc
 claude plugin marketplace add yoanbernabeu/grepai-skills && for p in configuration embeddings storage indexing search trace integration advanced; do claude plugin install --scope=user "grepai-$p@grepai-skills"; done
 
 # Domain
-claude plugin marketplace add supabase/agent-skills && claude plugin install --scope=user postgres-best-practices@supabase-agent-skills
 claude plugin marketplace add vercel-labs/agent-browser && claude plugin install --scope=user agent-browser@agent-browser
+claude plugin marketplace add supabase/agent-skills && claude plugin install --scope=user postgres-best-practices@supabase-agent-skills
+
+# Design
+claude plugin marketplace add Leonxlnx/taste-skill && claude plugin install --scope=user taste-skill@taste-skill
 
 # Docs & Writing
 claude plugin marketplace add epoko77-ai/im-not-ai && claude plugin install --scope=user humanize-korean@im-not-ai
@@ -35,8 +38,11 @@ claude plugin marketplace add kepano/obsidian-skills && claude plugin install --
 ## Codex
 
 # Workflow
-codex plugin marketplace add EveryInc/compound-engineering-plugin && codex plugin add compound-engineering@compound-engineering-plugin
 codex plugin marketplace add addyosmani/agent-skills && codex plugin add agent-skills@agent-skills
+codex plugin marketplace add EveryInc/compound-engineering-plugin && codex plugin add compound-engineering@compound-engineering-plugin
 
 # Memory & Context
 codex plugin marketplace add mksglu/context-mode && codex plugin add context-mode@context-mode
+
+# Design
+codex plugin marketplace add Leonxlnx/taste-skill && codex plugin add taste-skill@taste-skill
