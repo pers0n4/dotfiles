@@ -1,7 +1,0 @@
-[env]
-_.file = [
-  "{{xdg_config_home}}/mise/.env.development",
-  "{{xdg_config_home}}/mise/.env.development.local",
-  "{{config_root}}/.env.development",
-  "{{config_root}}/.env.development.local",
-]

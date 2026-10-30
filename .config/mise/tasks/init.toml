@@ -11,7 +11,7 @@ exec {{mise_bin}} run -C "${MISE_ORIGINAL_CWD:-$PWD}" "init:${usage_tool}"
 '''
 
 ["init:codegraph"]
-run = ["codegraph init",  "codegraph index"]
+run = ["codegraph init", "codegraph index"]
 hide = true
 
 ["init:grepai"]

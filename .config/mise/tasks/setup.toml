@@ -1,7 +1,7 @@
 [setup]
 usage = '''
 arg "<tool>" {
-  choices "instructions" "mcp" "plugin" "skills"
+  choices "mcp" "plugin" "skills"
 }
 '''
 run = '''

@@ -1,0 +1,68 @@
+[dotfiles."~/.config/ghostty/config"]
+source = "~/iCloud/git/dotfiles/.config/ghostty/config"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.config/git/ignore"]
+source = "~/iCloud/git/dotfiles/.config/git/ignore"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.gjc/agent/AGENTS.md"]
+source = "~/iCloud/git/dotfiles/.gjc/agent/AGENTS.md"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.gjc/agent/APPEND_SYSTEM.md"]
+source = "~/iCloud/git/dotfiles/.gjc/agent/APPEND_SYSTEM.md"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.gjc/agent/RULES.md"]
+source = "~/iCloud/git/dotfiles/.gjc/agent/RULES.md"
+mode = "copy"
+
+[dotfiles."~/.gjc/agent/models.yml"]
+source = "~/iCloud/git/dotfiles/.gjc/agent/models.yml"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.gjc/agent/extensions/orca-agent-status.ts"]
+source = "~/iCloud/git/dotfiles/.gjc/agent/extensions/orca-agent-status.ts"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.omo/omo.jsonc"]
+source = "~/iCloud/git/dotfiles/.omo/omo.jsonc"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.omo/agent/AGENTS.md"]
+source = "~/iCloud/git/dotfiles/.gjc/agent/AGENTS.md"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.omo/agent/mcp.json"]
+source = "~/iCloud/git/dotfiles/.omo/agent/mcp.json"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.omo/agent/models.json"]
+source = "~/iCloud/git/dotfiles/.omo/agent/models.json"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.omo/agent/settings.json"]
+source = "~/iCloud/git/dotfiles/.omo/agent/settings.json"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.omo/agent/extensions/orca-agent-status.ts"]
+source = "~/iCloud/git/dotfiles/.omo/agent/extensions/orca-agent-status.ts"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.omo/agent/extensions/orca-titlebar-spinner.ts"]
+source = "~/iCloud/git/dotfiles/.omo/agent/extensions/orca-titlebar-spinner.ts"
+mode = "symlink"
+relative = false

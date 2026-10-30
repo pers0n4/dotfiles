@@ -19,5 +19,5 @@ run = ["brew update", "brew upgrade", "brew cleanup --prune=all"]
 hide = true
 
 ["upgrade:mise"]
-run = ["{{mise_bin}} upgrade", "{{mise_bin}} reshim", "{{mise_bin}} cache prune", "{{mise_bin}} prune --yes"]
+run = ["{{mise_bin}} upgrade", "{{mise_bin}} reshim", "{{mise_bin}} cache prune", "{{mise_bin}} prune --yes", "{{mise_bin}} doctor"]
 hide = true
