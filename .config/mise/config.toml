@@ -1,4 +1,4 @@
-min_version = "2026.10.0"
+min_version = "2026.10.4"  # fnox minimum
 
 [env]
 _.file = [
@@ -14,6 +14,7 @@ UV_PYTHON = { value = "{{ tools.python.path }}", tools = true }
 
 IR_CONFIG_DIR = "{{ xdg_config_home }}/ir"
 OBSIDIAN_VAULT = "{{ env.HOME }}/Library/Mobile Documents/iCloud~md~obsidian/Documents"
+HOMEBREW_BUNDLE_FILE_GLOBAL = "{{ env.HOME }}/iCloud/git/dotfiles/archives/brew/Brewfile+{{ now() | date(format='%Y-%m-%d') }}.{{ env.USER }}"
 
 [tools]
 # Runtimes
@@ -108,4 +109,3 @@ run = "exec bash {{ [mise_config_dir, 'hooks', 'notify-outdated.sh'] | join_path
 [shell_alias]
 mr = "{{ mise_bin }} run"
 mx = "{{ mise_bin }} exec"
-gj = "gjc --mcp-config=$HOME/.gjc/agent/mcp.json"
