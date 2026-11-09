@@ -1,18 +1,25 @@
+#:schema https://mise.jdx.dev/schema/mise-task.json
+
 [update]
 usage = '''
 arg "<tool>" {
-  choices "all" "antidote" "claude" "codex"
+  choices "all" "agent-browser" "antidote" "claude" "codex"
   default "all"
 }
 '''
 run = '''
 #!/usr/bin/env bash
-exec {{mise_bin}} run "update:${usage_tool}"
+exec {{ mise_bin }} run "update:${usage_tool}"
 '''
 
 ["update:all"]
 depends = ["update:*"]
 hide = true
+
+["update:agent-browser"]
+description = "agent-browser용 Chrome for Testing 설치·실행 검증 후 미사용 구버전 정리"
+dir = "{{ cwd }}"
+run = "python3 {{ [mise_config_dir, 'scripts', 'browser-update.py'] | join_path | quote }}"
 
 ["update:antidote"]
 run = "exec zsh -lc 'source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh; antidote update'"
