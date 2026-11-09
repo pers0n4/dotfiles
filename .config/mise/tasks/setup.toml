@@ -1,3 +1,5 @@
+#:schema https://mise.jdx.dev/schema/mise-task.json
+
 [setup]
 usage = '''
 arg "<tool>" {
@@ -6,5 +8,5 @@ arg "<tool>" {
 '''
 run = '''
 #!/usr/bin/env bash
-exec {{mise_bin}} run "setup:${usage_tool}"
+exec {{ mise_bin }} run "setup:${usage_tool}"
 '''
