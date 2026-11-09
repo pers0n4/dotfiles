@@ -22,6 +22,11 @@ relative = false
 source = "~/iCloud/git/dotfiles/.gjc/agent/RULES.md"
 mode = "copy"
 
+[dotfiles."~/.gjc/agent/.mcp.json"]
+source = "~/iCloud/git/dotfiles/.gjc/agent/.mcp.json"
+mode = "symlink"
+relative = false
+
 [dotfiles."~/.gjc/agent/models.yml"]
 source = "~/iCloud/git/dotfiles/.gjc/agent/models.yml"
 mode = "symlink"
@@ -66,3 +71,26 @@ relative = false
 source = "~/iCloud/git/dotfiles/.omo/agent/extensions/orca-titlebar-spinner.ts"
 mode = "symlink"
 relative = false
+
+[dotfiles."~/.gjc/agent/extensions/ai-memory-summary.ts"]
+source = "~/iCloud/git/dotfiles/.agents/extensions/ai-memory-summary/gjc.ts"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.omo/agent/extensions/ai-memory-summary.ts"]
+source = "~/iCloud/git/dotfiles/.agents/extensions/ai-memory-summary/omo.ts"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.pi/agent/extensions/ai-memory-summary.ts"]
+source = "~/iCloud/git/dotfiles/.agents/extensions/ai-memory-summary/pi.ts"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.omp/agent/extensions/ai-memory-summary.ts"]
+source = "~/iCloud/git/dotfiles/.agents/extensions/ai-memory-summary/omp.ts"
+mode = "symlink"
+relative = false
+
+[bootstrap.hooks]
+pre-dotfiles = 'python3 "$HOME/iCloud/git/dotfiles/.config/mise/scripts/check-dotfiles.py"'
