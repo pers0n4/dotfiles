@@ -34,4 +34,4 @@ npx --yes skills add kepano/obsidian-skills --agent codex pi --skill '*' --globa
 npx --yes skills add tt-a1i/archify --agent claude-code codex pi --skill archify --global --yes
 
 # Agent Tools
-npx --yes skills add stablyai/orca --agent claude-code codex pi --skill computer-use linear-tickets orca-cli orca-emulator orca-emulator-android orca-linear orca-per-workspace-env orchestration --global --yes
+npx --yes skills add stablyai/orca --agent claude-code codex pi --skill orca-computer-use orca-cli orca-emulator orca-emulator-android orca-linear orca-per-workspace-env orchestration --global --yes
