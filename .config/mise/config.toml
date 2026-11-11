@@ -68,12 +68,15 @@ zizmor = "latest"  # .github/workflows/*.yml action.yml dependabot.yml .pre-comm
 # Encryption and secrets
 age = "latest"
 sops = "latest"
+"npm:@bitwarden/cli" = "latest"
 
 # AI and agent tooling
 pi = "latest"
 oh-my-pi = "latest"
 "npm:gajae-code" = { version = "latest", postinstall = "gjc session list" }
 "npm:omo-ai" = "latest"
+"aqua:anomalyco/opencode" = "latest"  # registry default npm:@opencode/cli needs a blocked postinstall
+herdr = "latest"
 "pypi:git+https://github.com/agentskills/agentskills.git#subdirectory=skills-ref" = "main"
 
 # Memory and knowledge
@@ -87,6 +90,7 @@ agent-browser = { version = "latest", postinstall = "agent-browser install" }
 # Code exploration and search
 ast-grep = "latest"
 codegraph = "latest"
+"github:yoanbernabeu/grepai" = "latest"
 "pypi:graphifyy" = { version = "latest", extras = "pdf,office,mcp,ollama,sql,postgres" }
 # "github:DeusData/codebase-memory-mcp" = { version = "latest", platforms = { macos-arm64 = { asset_pattern = "codebase-memory-mcp-ui-darwin-arm64.tar.gz" } }, postinstall = "codebase-memory-mcp install" }
 
