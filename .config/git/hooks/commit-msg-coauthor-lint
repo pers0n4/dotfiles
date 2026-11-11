@@ -1,6 +1,6 @@
 #!/bin/sh
 # AI 공동작성자 이름이 정규화 형식과 다를 때만 경고한다. 메시지 수정·모델 신원 확인·커밋 차단은 하지 않는다.
-# 전역 git 설정의 hook.coauthor-trailer-lint(commit-msg)로 실행되며, 저장소 hook과 별개로 함께 실행된다.
+# 전역 git 설정의 hook.commit-msg-coauthor-lint(commit-msg)로 실행되며, 저장소 hook과 별개로 함께 실행된다.
 if ! command -v python3 >/dev/null; then
     printf '%s\n' '경고: python3가 없어 AI 공동작성자 이름 검사를 건너뜁니다.' >&2
 else
