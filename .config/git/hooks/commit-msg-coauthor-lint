@@ -2,7 +2,7 @@
 # AI 공동작성자 이름이 정규화 형식과 다를 때만 경고한다. 메시지 수정·모델 신원 확인·커밋 차단은 하지 않는다.
 # 전역 git 설정의 hook.commit-msg-coauthor-lint(commit-msg)로 실행되며, 저장소 hook과 별개로 함께 실행된다.
 if ! command -v python3 >/dev/null; then
-    printf '%s\n' '경고: python3가 없어 AI 공동작성자 이름 검사를 건너뜁니다.' >&2
+    printf '%s\n' '[WARN] commit-msg-coauthor-lint: python3가 없어 AI 공동작성자 이름 검사를 건너뜁니다.' >&2
 else
 python3 - "$@" <<'PY'
 import re
@@ -11,12 +11,12 @@ import sys
 
 
 def warn(message):
-    print(f"경고: {message}", file=sys.stderr)
+    print(f"[WARN] commit-msg-coauthor-lint: {message}", file=sys.stderr)
 
 
 def inspect():
     if len(sys.argv) != 2:
-        warn("commit-msg 메시지 파일 인자가 잘못되어 AI 공동작성자 이름 검사를 건너뜁니다.")
+        warn("커밋 메시지 파일 인자가 잘못되어 AI 공동작성자 이름 검사를 건너뜁니다.")
         return
     parsed = subprocess.run(
         ["git", "interpret-trailers", "--parse", "--", sys.argv[1]],
@@ -34,8 +34,9 @@ def inspect():
     gpt = re.compile(
         r"GPT-[0-9]+(?:\.[0-9]+)?(?: (?:Sol|Luna|Astra|Codex|Mini|Nano|Pro))*"
     )
-    ai_prefix = re.compile(r"^(?:GPT|Claude|Anthropic|GJC|Codex)(?:\b|[-_:])", re.IGNORECASE)
-    ai_emails = {"codex@openai.com", "noreply@openai.com", "noreply@anthropic.com"}
+    ai_prefix = re.compile(r"^(?:Claude|GPT)(?:\b|[-_:])", re.IGNORECASE)
+    # 경고 대상을 식별할 때는 작성 정책(.agents/references/ai-attribution.md)의 이메일 매핑을 따른다.
+    ai_emails = {"noreply@openai.com", "noreply@anthropic.com"}
 
     for line in parsed.stdout.splitlines():
         token, separator, value = line.partition(":")
@@ -52,15 +53,14 @@ def inspect():
         # repr로 제어 문자를 이스케이프해 터미널 제어 시퀀스를 그대로 출력하지 않는다.
         warn(
             f"Co-authored-by의 AI 모델명 {name!r}이 정규화 형식과 다릅니다. "
-            "Claude Opus 5.5 또는 GPT-6.1 Sol 같은 형식을 사용하십시오. "
-            "이 hook은 커밋을 차단하지 않습니다."
+            "Claude Opus 5.5 또는 GPT-6.1 Sol 같은 형식을 사용하세요."
         )
 
 
 try:
     inspect()
 except Exception:
-    warn("AI 공동작성자 이름 검사에 오류가 발생했습니다. 이 hook은 커밋을 차단하지 않습니다.")
+    warn("AI 공동작성자 이름 검사에 오류가 발생했습니다.")
 PY
 fi
 
