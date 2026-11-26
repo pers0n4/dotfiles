@@ -6,6 +6,7 @@ Requires Python 3.11 or newer for the standard-library ``tomllib`` module.
 
 import json
 import os
+import re
 import shutil
 import stat
 import subprocess
@@ -135,11 +136,25 @@ def _loaded_config_paths(mise):
     return paths
 
 
+def _merge_entry(key, declaration):
+    target, _, edit_id = key.rpartition("/")
+    merge = declaration["merge"]
+    if (
+        set(declaration) != {"source", "merge"}
+        or (merge is not True and merge != "missing")
+        or not target.endswith(".json")
+        or not re.fullmatch(r"[A-Za-z0-9_.-]+", edit_id)
+    ):
+        raise SafetyError("unsupported dotfile merge; expected a JSON target, edit id and source")
+    return target, declaration["source"], "merge"
+
+
 def _effective_entries(config_paths):
     # `mise config ls` returns files from lowest to highest precedence. The
     # later declaration for a target replaces the earlier declaration, as mise
     # does for native [dotfiles] entries.
     declarations = {}
+    active = []
     for path in config_paths:
         try:
             with path.open("rb") as stream:
@@ -156,9 +171,13 @@ def _effective_entries(config_paths):
         for target, declaration in dotfiles.items():
             if not isinstance(target, str) or not isinstance(declaration, dict):
                 raise SafetyError("a native dotfile declaration has an invalid shape")
-            declarations[target] = declaration
+            # Edits and whole-file entries have separate precedence in mise.
+            # Validate every merge declaration, including ones later shadowed.
+            if "merge" in declaration:
+                active.append(_merge_entry(target, declaration))
+            else:
+                declarations[target] = declaration
 
-    active = []
     for target, declaration in declarations.items():
         enabled = declaration.get("enabled", True)
         if not isinstance(enabled, bool):
@@ -168,7 +187,7 @@ def _effective_entries(config_paths):
         if set(declaration) - {"source", "mode", "relative", "enabled"}:
             raise SafetyError("a native dotfile uses unsupported deployment options")
         mode = declaration.get("mode")
-        if not isinstance(mode, str) or mode not in ("symlink", "copy"):
+        if not isinstance(mode, str) or mode not in ("symlink", "copy", "symlink-each"):
             raise SafetyError("a native dotfile uses an unsupported deployment mode")
         if not isinstance(declaration.get("relative", False), bool):
             raise SafetyError("a native dotfile has an invalid relative setting")
@@ -176,8 +195,7 @@ def _effective_entries(config_paths):
     return active
 
 
-def _validate_source(source_value, home, repository):
-    source = _expand_absolute_path(source_value, home, "source")
+def _validate_source(source, repository):
     try:
         canonical_source = source.resolve(strict=True)
     except (OSError, RuntimeError, ValueError):
@@ -210,6 +228,60 @@ def _target_slot(target_value, home):
     return parent / target.name
 
 
+def _require_tree_directory(target):
+    try:
+        mode = target.lstat().st_mode
+    except FileNotFoundError:
+        return
+    if not stat.S_ISDIR(mode):
+        raise SafetyError("a symlink-each target directory is not a real directory")
+
+
+def _expand_entries(target_value, source_value, mode, home, repository):
+    source = _expand_absolute_path(source_value, home, "source")
+    target = _target_slot(target_value, home)
+    if mode == "merge":
+        if (
+            ".." in source.parts
+            or _expand_absolute_path(target_value, home, "target") != target
+            or not _within(target, home)
+        ):
+            raise SafetyError("a merge target must be under HOME without parent aliases")
+    if mode != "symlink-each":
+        yield target, source, mode
+        return
+
+    declared_target = _expand_absolute_path(target_value, home, "target")
+    if ".." in source.parts or declared_target != target:
+        raise SafetyError("a symlink-each path uses parent traversal or a target parent link")
+
+    try:
+        source = source.resolve(strict=True)
+        if not _within(source, repository) or not source.is_dir():
+            raise SafetyError("a symlink-each source is not a directory in the repository")
+        # mise can also prune stale links absent from the current source tree.
+        if (not _within(target, home) or target == home
+                or _within(target, repository) or _within(repository, target)):
+            raise SafetyError("a symlink-each target tree must be under HOME and disjoint from the repository")
+        if any(p.exists() and p.samefile(repository) for p in (target, *target.parents)):
+            raise SafetyError("a symlink-each target aliases the repository")
+        if target.exists() and any(target.samefile(p) for p in repository.parents):
+            raise SafetyError("a symlink-each target aliases a repository ancestor")
+
+        pending = [(source, target)]
+        while pending:
+            directory, destination = pending.pop()
+            _require_tree_directory(destination)
+            for child in directory.iterdir():
+                leaf = destination / child.name
+                if stat.S_ISDIR(child.lstat().st_mode):
+                    pending.append((child, leaf))
+                else:
+                    yield leaf, child, "symlink"
+    except (OSError, RuntimeError, ValueError):
+        raise SafetyError("a symlink-each tree cannot be inspected safely") from None
+
+
 def validate():
     home = _home_directory()
     repository = _repository_root(home)
@@ -220,20 +292,33 @@ def validate():
     source_paths = set()
     source_stats = []
     for target_value, source_value, mode in declarations:
-        source, source_stat = _validate_source(source_value, home, repository)
-        target = _target_slot(target_value, home)
-        entries.append((target, source, mode))
-        source_paths.add(source)
-        source_stats.append(source_stat)
+        for target, source_path, leaf_mode in _expand_entries(
+            target_value, source_value, mode, home, repository
+        ):
+            source, source_stat = _validate_source(source_path, repository)
+            entries.append((target, source, leaf_mode))
+            source_paths.add(source)
+            source_stats.append(source_stat)
 
-    for target, _source, _mode in entries:
+    whole_file_targets = {target for target, _, mode in entries if mode != "merge"}
+    for target, _source, mode in entries:
         if _within(target, repository):
             raise SafetyError("a target parent resolves into the canonical iCloud repository")
         if target in source_paths:
             raise SafetyError("a target aliases a registered source")
         try:
             target_stat = target.lstat()
+            if mode == "merge":
+                if not stat.S_ISREG(target_stat.st_mode):
+                    raise SafetyError("a merge target must be an existing regular file")
+                if any(parent.samefile(repository) for parent in target.parents):
+                    raise SafetyError("a merge target aliases the canonical iCloud repository")
+                if target in whole_file_targets:
+                    raise SafetyError("a merge target also has a whole-file deployment")
         except FileNotFoundError:
+            if mode == "merge":
+                # mise would create a partial keymap without Herdr defaults.
+                raise SafetyError("a merge target must be an existing regular file") from None
             continue
         except OSError:
             raise SafetyError("a target cannot be inspected safely") from None
