@@ -7,4 +7,4 @@ stamp="${XDG_CACHE_HOME:-$HOME/.cache}/mise-outdated/$(printf %s "$root" | shasu
 out="$(mise outdated --no-global 2>/dev/null)" || exit 0
 mkdir -p "${stamp%/*}" && printf '%s\n' "$root" >"$stamp"
 [ -n "$out" ] || exit 0
-printf '\033[33m[mise] 업데이트 가능한 도구가 있습니다 (mise upgrade --no-global)\033[0m\n%s\n' "$out" >&2
+printf '\033[33m[INFO] mise: 업데이트 가능한 프로젝트 도구가 있습니다. 업데이트: mise upgrade --no-global\033[0m\n%s\n' "$out" >&2
