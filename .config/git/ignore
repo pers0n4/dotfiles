@@ -12,28 +12,43 @@
 **/temp
 **/tmp
 
+# Scratch directories
+**/sandbox
+**/scratch
+**/workbench
+
+# Local Markdown documents
+*.local.md
+
 # Environment secrets; keep templates versionable
 **/.env
 **/.env.*
-!**/.env.example
 !**/.env.*.example
+!**/.env.example
 !**/.env.sample
 !**/.env.template
 
-# mise local configuration
+# [mise local configuration](https://mise.jdx.dev/configuration.html#mise-toml)
 # Config discovery overrides (separate from config merge precedence)
 **/mise/miserc.local.toml
 **/.miserc.local.toml
-# Config overrides grouped from lower to higher precedence within a directory
+# Base local configs, lower to higher precedence within one directory
+# conf.d patterns also match environment-specific local configs
 **/.mise/conf.d/*.local.toml
 **/mise/conf.d/*.local.toml
 **/.mise/config.local.toml
 **/mise/config.local.toml
 **/mise.local.toml
 **/.mise.local.toml
-**/.mise/config.*.local.toml
+# Environment-local configs, lower to higher precedence with MISE_ENV_CONF_D=true
+# With MISE_ENV_CONF_D=false, conf.d matches are ordinary fragments:
+# they load alphabetically before config.local.toml, not at this layer.
+# Verified with mise 2026.11.9; see https://mise.jdx.dev/configuration/environments.html#conf-d-environments
+**/mise/conf.d/*.*.local.toml
 **/mise/config.*.local.toml
 **/mise.*.local.toml
+**/.mise/conf.d/*.*.local.toml
+**/.mise/config.*.local.toml
 **/.mise.*.local.toml
 
 # Worktrees and issue data
@@ -51,12 +66,16 @@
 **/.grepai
 
 # Dependencies
+**/.venv
 **/node_modules
-**/__pycache__
+
+# Tool caches
+**/.ruff_cache/
 
 # Generated artifacts
-**/artifacts
-**/graphify-out
 **/.archify
 **/.impeccable
 **/.taste-skill
+**/__pycache__
+**/artifacts
+**/graphify-out
