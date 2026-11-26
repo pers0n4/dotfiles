@@ -3,7 +3,7 @@
 # 전역 git 설정의 hook.commit-msg-conventional-lint(commit-msg)로 실행되며, 저장소 hook과 별개로 함께 실행된다.
 # 검사를 건너뛰려면 git commit --no-verify를 사용한다. 이 옵션은 저장소의 commit-msg·pre-commit hook도 함께 건너뛴다.
 if ! command -v python3 >/dev/null; then
-    printf '%s\n' '경고: python3가 없어 Conventional Commits 검사를 건너뜁니다.' >&2
+    printf '%s\n' '[WARN] commit-msg-conventional-lint: python3가 없어 Conventional Commits 검사를 건너뜁니다.' >&2
     exit 0
 fi
 
@@ -16,7 +16,8 @@ TYPES = ("feat", "fix", "revert", "refactor", "test", "docs", "chore", "style", 
 HEADER = re.compile(
     r"(?P<type>[^(!:\s]+)(?:\((?P<scope>[^()]*)\))?(?P<breaking>!)?: (?P<description>\S.*)"
 )
-SCOPE = re.compile(r"[a-z0-9]+(?:[-_./][a-z0-9]+)*")
+# Conventional Commits는 scope의 대소문자를 정하지 않으므로 저장소 규칙의 camelCase scope(예: meatStation)도 허용한다.
+SCOPE = re.compile(r"[A-Za-z0-9]+(?:[-_./][A-Za-z0-9]+)*")
 SCISSORS = re.compile(r"^\S+ -{24} >8 -{24}$")
 BREAKING_FOOTER = re.compile(r"^BREAKING[ -]CHANGE: \S")
 BREAKING_LIKE = re.compile(r"^breaking[ -]changes?\s*:", re.IGNORECASE)
@@ -26,12 +27,15 @@ EXEMPT = re.compile(r"^(?:fixup|squash|amend)! ")
 
 
 def fail(errors, header):
-    print(f"오류: 커밋 메시지가 Conventional Commits 규칙을 따르지 않습니다: {header!r}", file=sys.stderr)
+    print(
+        "[ERROR] commit-msg-conventional-lint: "
+        f"커밋 메시지가 Conventional Commits 규칙을 따르지 않습니다: {header!r}",
+        file=sys.stderr,
+    )
     for error in errors:
         print(f"  - {error}", file=sys.stderr)
     print("  형식: <type>[(<scope>)][!]: <description>", file=sys.stderr)
-    print(f"  type: {', '.join(TYPES)}", file=sys.stderr)
-    print("  검사를 건너뛰려면 git commit --no-verify를 사용하십시오(저장소 hook도 함께 건너뜀).", file=sys.stderr)
+    print(f"  허용 type: {', '.join(TYPES)}", file=sys.stderr)
     sys.exit(1)
 
 
@@ -58,7 +62,7 @@ def read_message(path):
 
 def main():
     if len(sys.argv) != 2:
-        print("오류: commit-msg 메시지 파일 인자가 잘못되었습니다.", file=sys.stderr)
+        print("[ERROR] commit-msg-conventional-lint: 커밋 메시지 파일 인자가 잘못되었습니다.", file=sys.stderr)
         sys.exit(1)
     lines = read_message(sys.argv[1])
     if not lines:
@@ -77,7 +81,7 @@ def main():
             errors.append(f"type {match['type']!r}은 허용 목록에 없습니다(영어 소문자).")
         scope = match["scope"]
         if scope is not None and not SCOPE.fullmatch(scope):
-            errors.append(f"scope {scope!r}은 영어 소문자·숫자와 - _ . / 구분자만 사용할 수 있습니다.")
+            errors.append(f"scope {scope!r}은 영문·숫자와 - _ . / 구분자만 사용할 수 있습니다.")
     if len(lines) > 1 and lines[1].strip():
         errors.append("제목과 본문 사이에는 빈 줄이 있어야 합니다.")
 
