@@ -6,7 +6,6 @@ _.file = [
   "{{ mise_config_dir }}/.env.local",
   { path = ["{{ cwd }}/.env", "{{ cwd }}/.env.local"], find_up = true },
 ]
-_.path = ["/opt/homebrew/opt/libpq/bin"]
 _.python.venv = { path = "{{ xdg_data_home }}/mise/venvs/global", create = true, uv_create_args = ["--seed"] }
 
 NODE_ENV = { default = "development" }
@@ -71,6 +70,7 @@ sops = "latest"
 "npm:@bitwarden/cli" = "latest"
 
 # AI and agent tooling
+"npm:skills" = "latest"
 pi = "latest"
 oh-my-pi = "latest"
 "npm:gajae-code" = { version = "latest", postinstall = "gjc session list" }
@@ -97,7 +97,7 @@ codegraph = "latest"
 [settings]
 npm.package_manager = "bun"
 python.uv_venv_auto = "create|source"
-minimum_release_age_excludes = ["*pers0n4/*", "npm:gajae-code", "npm:omo-ai"]
+minimum_release_age_excludes = ["*pers0n4/*", "oh-my-pi", "npm:gajae-code", "npm:omo-ai"]
 
 [settings.status]
 show_env = false
@@ -113,3 +113,4 @@ run = "exec bash {{ [mise_config_dir, 'hooks', 'notify-outdated.sh'] | join_path
 [shell_alias]
 mr = "{{ mise_bin }} run"
 mx = "{{ mise_bin }} exec"
+icloud-quota = '''brctl quota | awk '/^[0-9]+ bytes/ {printf "%.2f GB\n", $1/1e9}' '''
