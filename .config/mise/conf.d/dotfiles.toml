@@ -8,6 +8,20 @@ source = "~/iCloud/git/dotfiles/.config/git/ignore"
 mode = "symlink"
 relative = false
 
+[dotfiles."~/.config/herdr-app/keys.json/panel-shortcuts"]
+source = "~/iCloud/git/dotfiles/.config/herdr-app/keys.json"
+merge = true
+
+[dotfiles."~/.config/herdr-app/mods"]
+source = "~/iCloud/git/dotfiles/.config/herdr-app/mods"
+mode = "symlink-each"
+relative = false
+
+[dotfiles."~/.gjc/agent/.mcp.json"]
+source = "~/iCloud/git/dotfiles/.gjc/agent/.mcp.json"
+mode = "symlink"
+relative = false
+
 [dotfiles."~/.gjc/agent/AGENTS.md"]
 source = "~/iCloud/git/dotfiles/.gjc/agent/AGENTS.md"
 mode = "symlink"
@@ -22,13 +36,8 @@ relative = false
 source = "~/iCloud/git/dotfiles/.gjc/agent/RULES.md"
 mode = "copy"
 
-[dotfiles."~/.gjc/agent/.mcp.json"]
-source = "~/iCloud/git/dotfiles/.gjc/agent/.mcp.json"
-mode = "symlink"
-relative = false
-
-[dotfiles."~/.gjc/agent/models.yml"]
-source = "~/iCloud/git/dotfiles/.gjc/agent/models.yml"
+[dotfiles."~/.gjc/agent/extensions/ai-memory-summary.ts"]
+source = "~/iCloud/git/dotfiles/.agents/extensions/ai-memory-summary/gjc.ts"
 mode = "symlink"
 relative = false
 
@@ -37,8 +46,8 @@ source = "~/iCloud/git/dotfiles/.gjc/agent/extensions/orca-agent-status.ts"
 mode = "symlink"
 relative = false
 
-[dotfiles."~/.omo/omo.jsonc"]
-source = "~/iCloud/git/dotfiles/.omo/omo.jsonc"
+[dotfiles."~/.gjc/agent/models.yml"]
+source = "~/iCloud/git/dotfiles/.gjc/agent/models.yml"
 mode = "symlink"
 relative = false
 
@@ -47,18 +56,8 @@ source = "~/iCloud/git/dotfiles/.gjc/agent/AGENTS.md"
 mode = "symlink"
 relative = false
 
-[dotfiles."~/.omo/agent/mcp.json"]
-source = "~/iCloud/git/dotfiles/.omo/agent/mcp.json"
-mode = "symlink"
-relative = false
-
-[dotfiles."~/.omo/agent/models.json"]
-source = "~/iCloud/git/dotfiles/.omo/agent/models.json"
-mode = "symlink"
-relative = false
-
-[dotfiles."~/.omo/agent/settings.json"]
-source = "~/iCloud/git/dotfiles/.omo/agent/settings.json"
+[dotfiles."~/.omo/agent/extensions/ai-memory-summary.ts"]
+source = "~/iCloud/git/dotfiles/.agents/extensions/ai-memory-summary/omo.ts"
 mode = "symlink"
 relative = false
 
@@ -72,23 +71,43 @@ source = "~/iCloud/git/dotfiles/.omo/agent/extensions/orca-titlebar-spinner.ts"
 mode = "symlink"
 relative = false
 
-[dotfiles."~/.gjc/agent/extensions/ai-memory-summary.ts"]
-source = "~/iCloud/git/dotfiles/.agents/extensions/ai-memory-summary/gjc.ts"
+[dotfiles."~/.omo/agent/mcp.json"]
+source = "~/iCloud/git/dotfiles/.omo/agent/mcp.json"
 mode = "symlink"
 relative = false
 
-[dotfiles."~/.omo/agent/extensions/ai-memory-summary.ts"]
-source = "~/iCloud/git/dotfiles/.agents/extensions/ai-memory-summary/omo.ts"
+[dotfiles."~/.omo/agent/models.json"]
+source = "~/iCloud/git/dotfiles/.omo/agent/models.json"
 mode = "symlink"
 relative = false
 
-[dotfiles."~/.pi/agent/extensions/ai-memory-summary.ts"]
-source = "~/iCloud/git/dotfiles/.agents/extensions/ai-memory-summary/pi.ts"
+[dotfiles."~/.omo/omo.jsonc"]
+source = "~/iCloud/git/dotfiles/.omo/omo.jsonc"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.omp/agent/AGENTS.md"]
+source = "~/iCloud/git/dotfiles/.gjc/agent/AGENTS.md"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.omp/agent/RULES.md"]
+source = "~/iCloud/git/dotfiles/.omp/agent/RULES.md"
 mode = "symlink"
 relative = false
 
 [dotfiles."~/.omp/agent/extensions/ai-memory-summary.ts"]
 source = "~/iCloud/git/dotfiles/.agents/extensions/ai-memory-summary/omp.ts"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.pi/agent/AGENTS.md"]
+source = "~/iCloud/git/dotfiles/.gjc/agent/AGENTS.md"
+mode = "symlink"
+relative = false
+
+[dotfiles."~/.pi/agent/extensions/ai-memory-summary.ts"]
+source = "~/iCloud/git/dotfiles/.agents/extensions/ai-memory-summary/pi.ts"
 mode = "symlink"
 relative = false
 
